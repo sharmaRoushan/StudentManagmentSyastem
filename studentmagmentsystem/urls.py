@@ -7,9 +7,9 @@ from .import views,Hod_views,Staff_views,Student_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('base',views.base,name='base'),
-    path('singhup',views.singhup,name='singhup'),
+    # path('singhup',views.singhup,name='singhup'),
     #  login path
-    path('',views.login,name='login'),
+    path('',views.Login,name='Login'),
     path('dologin',views.dologin,name='dologin'),
 
 
