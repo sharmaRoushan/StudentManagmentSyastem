@@ -1,6 +1,8 @@
-from django.shortcuts import render ,redirect,HttpResponse
+from django.shortcuts import render,redirect,HttpResponse
 from studentapp.EmailBackend import EmailBackEnd
 from django.contrib.auth import authenticate,logout,login
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 def base(request):
     return render(request,'base.html')
 def Login(request):
@@ -14,18 +16,20 @@ def dologin(request):
             login(request,user)
             user_type=user.user_type
             if user_type == '1':
-                return HttpResponse('This is Hod panal')
+                return redirect('hod')
             elif user_type == '2':
                  return HttpResponse('This is staff panal')
             elif user_type == '3':
                 return HttpResponse('This is student panal')
 
             else:
-                # massage
+                messages.error(request,'Email and password are invaled')
                 return redirect('login')
         else:
-            # massage
+            messages.error(request,'Email and password are invaled')
             return redirect('login')
-
+def dologout(request):
+    logout(request)
+    return redirect('login')
 
    

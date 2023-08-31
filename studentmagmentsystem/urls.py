@@ -9,8 +9,11 @@ urlpatterns = [
     path('base',views.base,name='base'),
     # path('singhup',views.singhup,name='singhup'),
     #  login path
-    path('',views.Login,name='Login'),
+    path('',views.Login,name='login'),
     path('dologin',views.dologin,name='dologin'),
+    path('dologout',views.dologout,name='logout'),
+    #  This is hod page url
+    path('hod',Hod_views.HodHome,name='hod')
 
 
 
