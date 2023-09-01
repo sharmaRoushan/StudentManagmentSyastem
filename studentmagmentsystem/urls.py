@@ -12,8 +12,11 @@ urlpatterns = [
     path('',views.Login,name='login'),
     path('dologin',views.dologin,name='dologin'),
     path('dologout',views.dologout,name='logout'),
+    #  This is profile update url
+    path('profile',views.pudate,name='profile'),
     #  This is hod page url
-    path('hod',Hod_views.HodHome,name='hod')
+    path('hod',Hod_views.HodHome,name='hod'),
+
 
 
 

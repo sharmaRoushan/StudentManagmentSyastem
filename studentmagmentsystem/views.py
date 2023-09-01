@@ -32,4 +32,7 @@ def dologout(request):
     logout(request)
     return redirect('login')
 
+def pudate(request):
+    return render(request,'profile.html')
+
    
