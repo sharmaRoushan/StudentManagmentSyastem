@@ -1,2 +1,2 @@
-# StudentManagmentSyastem
-StudentManagmentSyastem
+# StudentManagmentSysteam
+StudentManagmentSysteam
