@@ -14,8 +14,10 @@ urlpatterns = [
     path('dologout',views.dologout,name='logout'),
     #  This is profile update url
     path('profile',views.pudate,name='profile'),
+    path('updateprofile',views.updateprofile,name='update_profile'),
     #  This is hod page url
     path('hod',Hod_views.HodHome,name='hod'),
+    
 
 
 
