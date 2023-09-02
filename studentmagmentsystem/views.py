@@ -67,6 +67,6 @@ def updateprofile(request):
             redirect('profile')
         except:
             messages.error(request,'Failed To Update Your Profile pic')
-return render(request,'profile.html')
+    return render(request,'profile.html')
 
    
