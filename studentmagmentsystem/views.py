@@ -49,12 +49,13 @@ def updateprofile(request):
         # email=request.POST.get('email')
         # username=request.POST.get('username')
         password=request.POST.get('password')
-        print(profile_pic)
+        # print(profile_pic)
         # print(profile_pic,first_name,last_name,email,username,password)
         try:
             coustamuser=CoustamUser.objects.get(id=request.user.id)
             coustamuser.first_name=first_name
             coustamuser.last_name=last_name
+            # coustamuser.username=username
             coustamuser.profile_pic=profile_pic
             if password!=None and password!="":
                 coustamuser.set_password(password)
