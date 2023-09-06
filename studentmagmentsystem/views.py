@@ -28,7 +28,7 @@ def dologin(request):
                 return redirect('login')
         else:
             messages.error(request,'Email and password are invaled')
-            return redirect('login')
+    return redirect('login')
 def dologout(request):
     logout(request)
     return redirect('login')
@@ -40,7 +40,6 @@ def pudate(request):
         'user':user,
     }
     return render(request,'profile.html')
-@login_required(login_url='/')
 def updateprofile(request):
     if request.method == 'POST':
         profile_pic = request.FILES.get('profile_pic')
