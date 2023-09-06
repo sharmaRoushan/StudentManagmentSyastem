@@ -42,7 +42,8 @@ def pudate(request):
     return render(request,'profile.html')
 def updateprofile(request):
     if request.method == 'POST':
-        profile_pic = request.FILES.get('profile_pic')
+        # profile_pic=request.FILES['profile_pic']
+        profile_pic=request.FILES.get('profile_pic')
         first_name=request.POST.get('first_name')
         last_name=request.POST.get('last_name')
         # email=request.POST.get('email')
@@ -60,11 +61,11 @@ def updateprofile(request):
                 coustamuser.set_password(password)
             # if password!=None and password!="":
             #     coustamuser.set_password(password)
-            if profile_pic!=None and profile_pic!="":
-                coustamuser.profile_pic=profile_pic
+            # if profile_pic!=None and profile_pic!="":
+            #     coustamuser.profile_pic=profile_pic
             coustamuser.save()
             messages.success(request,'Your profile Update Successfully')
-            redirect('profile')
+            redirect('hod')
         except:
             messages.error(request,'Failed To Update Your Profile pic')
     return render(request,'profile.html')

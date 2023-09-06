@@ -11,14 +11,12 @@
    <a href="javascript:void(0);" id="toggle_btn">
       <i class="fas fa-align-left"></i>
    </a>
-   <div class="top-nav-search">
-
+   <div class="top-nav-search mt-3">
       <h4>
-         <strong>Welcome&nbsp;</strong>&nbsp;<span>{{user.first_name}} {{user.last_name}}</span>&nbsp;!
+         <strong style="text-align:center;">Welcome&nbsp;</strong>&nbsp;<span>{{user.first_name}} {{user.last_name}}</span>&nbsp;!
+         <!-- <h3 class="page-title"style="text-align:center;">Welcome {{user.first_name}}!</h3> -->
 
       </h4>
-
-
    </div>
    <a class="mobile_btn" id="mobile_btn">
       <i class="fas fa-bars"></i>
@@ -104,13 +102,23 @@
       </li>
       <li class="nav-item dropdown has-arrow">
          <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+            {% if user.profile_pic == "" %}
+            <span class="user-img"><img class="rounded-circle" src="{%static '/img/image.png' %}" width="31"
+                  alt=""></span>
+            {%else%}
             <span class="user-img"><img class="rounded-circle" src="/{{user.profile_pic}}" width="31"
                   alt="{{user.first_name}}"></span>
+            {%endif%}
          </a>
          <div class="dropdown-menu">
             <div class="user-header">
                <div class="avatar avatar-sm">
+                  {%if user.profile_pic == ""%}
+                  <img src="{% static '/img/image.png' %}" alt="User Image" class="avatar-img rounded-circle">
+
+                  {%else%}
                   <img src="/{{user.profile_pic}}" alt="User Image" class="avatar-img rounded-circle">
+                  {%endif%}
                </div>
                <div class="user-text">
                   <h6>{{user.first_name}}&nbsp;{{user.last_name}}</h6>
