@@ -3,7 +3,7 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                <form method="post" action="{%url 'update_profile'%}" enctype="multipart/form-data">
+                <form method="post" action="{%url 'student'%}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="col-12">
                         <h5 class="form-title"><span>Add Student</span></h5>
@@ -69,14 +69,14 @@
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
                             <label>Address</label>
-                            <textarea class="form-control" placeholder="Address"></textarea>
+                            <textarea class="form-control" name="address"></textarea>
                         </div>
                     </div>
                  
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
-                                <label>Section</label>
-                                <select class="form-control">
+                                <label>Course</label>
+                                <select class="form-control" name="course">
                                     <option>Select Course</option>
                                     {%for c in course%}
                                     <option value="{{c.id}}">{{c.course_name}}</option>
@@ -87,7 +87,7 @@
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
                                 <label>Section</label>
-                                <select class="form-control">
+                                <select class="form-control" name="section_year_id">
                                     <option>Select Section Year</option>
                                     {%for s in session_year%}
                                     <option value="{{s.id}}">{{s.session_start}}&nbsp;To&nbsp;{{s.session_end}}</option>
@@ -98,7 +98,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label>Gender</label>
-                                    <select class="form-control">
+                                    <select class="form-control" name="gender">
                                         <option>Select Gender</option>
                                         <option value="female">Female</option>
                                         <option value="male">Male</option>

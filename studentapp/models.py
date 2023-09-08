@@ -37,7 +37,7 @@ class Student(models.Model):
     address=models.TextField()
     gender=models.CharField(max_length=100)
     course_id=models.ForeignKey(Course,on_delete=models.DO_NOTHING)
-    Session_Year_id=models.ForeignKey(Session_Year,on_delete=models.DO_NOTHING)
+    session_Year_id=models.ForeignKey(Session_Year,on_delete=models.DO_NOTHING)
     created_at=models.DateTimeField(auto_now_add=True)
     update_at=models.DateTimeField(auto_now_add=True)
     def __str__(self):
