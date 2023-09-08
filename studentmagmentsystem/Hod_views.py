@@ -22,10 +22,10 @@ def addstudent(request):
         gender=request.POST['gender']
         profile_pic=request.FILES['profile_pic']
         if CoustamUser.objects.filter(email=email).exists():
-            # messages.error(request,'Email already Taken')
+            messages.warning(request,'Email already Taken')
             return redirect('student')
         if CoustamUser.objects.filter(username=username).exists():
-            # messages.error(request,'username already Taken')
+            messages.warning(request,'username already Taken')
             return redirect('student')
         else:# Data seve karne ka tarika 
             user=CoustamUser(
@@ -36,7 +36,7 @@ def addstudent(request):
             profile_pic=profile_pic,
             user_type=3
             )
-            user.set_password=password
+            user.set_password(password)
             user.save()
             course=Course.objects.get(id=course)
             session_year=Session_Year.objects.get(id=section_year_id)
@@ -50,7 +50,7 @@ def addstudent(request):
 
             )
             student.save()
-            messages.success(request,'Student are Succssully saved')
+            messages.success(request,user.first_name+" "+user.last_name+"are Success")
             return redirect('student')
 
 
@@ -60,5 +60,11 @@ def addstudent(request):
         'course':course,
         'session_year':session_year,
     }
-
     return render(request,'hod/addstudent.html',context)
+def view_student(request):
+    student=Student.objects.all()
+    # print(student)
+    context={
+        'student':student,
+    }
+    return render(request,'hod/view_student.html',context)

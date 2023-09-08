@@ -18,7 +18,9 @@ urlpatterns = [
     #  This is hod page url
     path('hod',Hod_views.HodHome,name='hod'),
     # addstudent tag
-    path('student',Hod_views.addstudent,name='student')
+    path('student',Hod_views.addstudent,name='student'),
+    path('hod/student',Hod_views.view_student,name='hod/student')
+
     
 
 
