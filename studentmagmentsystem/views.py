@@ -61,8 +61,8 @@ def updateprofile(request):
                 coustamuser.set_password(password)
             # if password!=None and password!="":
             #     coustamuser.set_password(password)
-            # if profile_pic!=None and profile_pic!="":
-            #     coustamuser.profile_pic=profile_pic
+            if profile_pic!=None and profile_pic!="":
+                coustamuser.profile_pic=profile_pic
             coustamuser.save()
             messages.success(request,'Your profile Update Successfully')
             redirect('hod')

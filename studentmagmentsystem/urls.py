@@ -19,7 +19,9 @@ urlpatterns = [
     path('hod',Hod_views.HodHome,name='hod'),
     # addstudent tag
     path('student',Hod_views.addstudent,name='student'),
-    path('hod/student',Hod_views.view_student,name='hod/student')
+    path('hod/student',Hod_views.view_student,name='hod/student'),
+    path('student_edit/<int:pk>',Hod_views.edit_student,name='edit_student'),
+    path('update_student',Hod_views.Update_student,name='update_student')
 
     
 
