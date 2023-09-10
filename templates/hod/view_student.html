@@ -41,20 +41,15 @@
                      <tbody>
                         {%for stu in student%}
                         <tr>
-                           <td>PRE2209</td>
+                           <td>{{stu.id}}</td>
                            <td>
                               <h2 class="table-avatar">
                                  <a href="student-details.html" class="avatar avatar-sm mr-2">
-                                    {% if user.profile_pic == "" %}
-                                    <img
-                                       class="avatar-img rounded-circle" src="{%static '/img/image.png' %}"
+
+                                    <img class="avatar-img rounded-circle" src="/{{stu.admin.profile_pic}}"
                                        alt="User Image">
-                                       {%else%}
-                                    <img
-                                       class="avatar-img rounded-circle" src="/{{stu.admin.profile_pic}}"
-                                       alt="User Image">
-                                       {%endif%}
-                                    </a>
+
+                                 </a>
                                  <a
                                     href="student-details.html">{{stu.admin.first_name}}&nbsp;{{stu.admin.last_name}}</a>
                               </h2>
@@ -72,7 +67,7 @@
                                  <a href="/student_edit/{{stu.id}}" class="btn btn-sm bg-success-light mr-2">
                                     <i class="fas fa-pen"></i>
                                  </a>
-                                 <a href="#" class="btn btn-sm bg-danger-light">
+                                 <a href="/dilite_student/{{stu.id}}" class="btn btn-sm bg-danger-light">
                                     <i class="fas fa-trash"></i>
                                  </a>
                               </div>

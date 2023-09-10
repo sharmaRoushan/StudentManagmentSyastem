@@ -21,7 +21,12 @@ urlpatterns = [
     path('student',Hod_views.addstudent,name='student'),
     path('hod/student',Hod_views.view_student,name='hod/student'),
     path('student_edit/<int:pk>',Hod_views.edit_student,name='edit_student'),
-    path('update_student',Hod_views.Update_student,name='update_student')
+    path('update_student',Hod_views.Update_student,name='update_student'),
+    path('dilite_student/<int:pk>',Hod_views.Dilite_Student,name='dilite_student'),
+    path('add_course',Hod_views.course_add,name='add_course'),
+    path('view_course',Hod_views.view_course,name='view_course'),
+    path('edit_course/<int:pk>',Hod_views.edit_course,name='edit_course'),
+    path('update_course',Hod_views.update_course,name='update_course')
 
     
 

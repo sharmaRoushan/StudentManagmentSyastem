@@ -39,7 +39,7 @@ def addstudent(request):
             user.set_password(password)
             user.save()
             course=Course.objects.get(id=course)
-            session_year=Session_Year.objects.get(id=section_year_id)
+            session_year=Session_Year.objects.get(id=session_Year_id)
 
             student=Student(
                 admin=user,
@@ -87,7 +87,7 @@ def Update_student(request):
         password=request.POST['password']
         address=request.POST['address']
         course_id=request.POST.get('course_id')
-        session_year_id=request.POST.get('session_year_id')
+        session_Year_id=request.POST['session_Year_id']
         gender=request.POST['gender']
         profile_pic=request.FILES['profile_pic']
         user=CoustamUser.objects.get(id=student_id)
@@ -105,11 +105,48 @@ def Update_student(request):
         student.gender=gender
         course=Course.objects.get(id=course_id)
         student.course_id=course 
-        session_year=Session_Year.objects.get(id=session_year_id)
-        student.session_year_id=session_year
+        session_year=Session_Year.objects.get(id=session_Year_id)
+        student.session_Year_id=session_year
         student.save()
-        print(session_year)
+        # print(session_year)
         messages.success(request,'Recourd are successfully Updated')
         return redirect('hod/student')
 
     return render(request,'hod/edit_student.html')
+def Dilite_Student(request,pk):
+    user=admin.objects.get(id=pk)
+    user.delete()
+    return redirect('hod/student')
+def course_add(request):
+    if request.method== "POST":
+        course_add=request.POST.get('course_add')
+        course=Course(
+            course_name=course_add
+        )
+        course.save()
+        return redirect('add_course')
+        messages.success(request,'course are successfully created')
+
+    return render(request,'hod/add_course.html')
+
+def view_course(request):
+    course=Course.objects.all()
+    # print(course)
+    context={
+        'course':course
+    }
+    return render (request,'hod/view_course.html',context)
+def edit_course(request,pk):
+    course=Course.objects.get(id=pk)
+    context={
+        'course':course
+    }
+
+    return render(request,'hod/edit_course.html',context)
+
+def update_course(request):
+    if request.method=="POST":
+        course_name=request.POST.get('course_name')
+        course_id=request.POST.get('course_id')
+        print(course_name,course_id)
+    return render(request,'hod/edit_course.html')
