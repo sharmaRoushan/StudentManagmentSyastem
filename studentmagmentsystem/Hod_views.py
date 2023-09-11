@@ -162,5 +162,5 @@ def dilite_course(request,pk):
     course.delete()
     messages.success(request,'Course are successfull delete')
     return redirect('view_course')
-def View_Staff(request):
+def add_Staff(request):
     return render(request,'hod/view_staff.html')

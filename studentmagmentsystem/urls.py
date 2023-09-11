@@ -17,7 +17,7 @@ urlpatterns = [
     path('updateprofile',views.updateprofile,name='update_profile'),
     #  This is hod page url
     path('hod',Hod_views.HodHome,name='hod'),
-    path('view_staff',Hod_views.View_Staff,name='view_staf'),
+    path('add_staff',Hod_views.add_Staff,name='add_staf'),
     # addstudent tag
     path('student',Hod_views.addstudent,name='student'),
     path('hod/student',Hod_views.view_student,name='hod/student'),
