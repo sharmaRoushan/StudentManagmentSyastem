@@ -1,6 +1,6 @@
-{% extends 'base.html'%}
+{%extends 'base.html'%}
 {%block content%}
-{%load static%}
+
 <div class="content container-fluid">
    <div class="page-header">
       <div class="row align-items-center">
@@ -8,14 +8,9 @@
             <h3 class="page-title">Students</h3>
             <ul class="breadcrumb">
                <li class="breadcrumb-item active">{{user.first_name}}</li>
-
             </ul>
-
          </div>
-         {% include 'includes/messages.html'%}
-
          <div class="col-auto text-right float-right ml-auto">
-
             <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
             <a href="add-student.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>
          </div>
@@ -30,25 +25,46 @@
                      <thead>
                         <tr>
                            <th>ID</th>
-                           <th>Course Name</th>
+                           <th>Name</th>
+                           <th>Gender</th>
+                           <th>Address</th>
                            <th>Created At</th>
                            <th>Update At</th>
+
+
                            <th class="text-right">Action</th>
                         </tr>
                      </thead>
                      <tbody>
-                        {%for c in course %}
+                        {%for stu in student%}
                         <tr>
-                           <td>{{c.id}}</td>
-                           <td>{{c.course_name}}</td>
-                           <td>{{c.created_at}}</td>
-                           <td>{{c.update_at}}</td>
+                           <td>{{stu.id}}</td>
+                           <td>
+                              <h2 class="table-avatar">
+                                 <a href="student-details.html" class="avatar avatar-sm mr-2">
+
+                                    <img class="avatar-img rounded-circle" src="/{{stu.admin.profile_pic}}"
+                                       alt="User Image">
+
+                                 </a>
+                                 <a
+                                    href="student-details.html">{{stu.admin.first_name}}&nbsp;{{stu.admin.last_name}}</a>
+                              </h2>
+                           </td>
+                           <td>{{stu.admin.email}}</td>
+                           <td>{{stu.course_id.course_name}}</td>
+                           <td>{{stu.gender}}</td>
+                           <td>{{stu.address}}</td>
+                           <td>{{stu.session_Year_id.session_start}} To {{stu.session_Year_id.session_end}}</td>
+                           <td>{{stu.created_at}}</td>
+                           <td>{{stu.update_at}}</td>
+
                            <td class="text-right">
                               <div class="actions">
-                                 <a href="/edit_course/{{c.pk}}" class="btn btn-sm bg-success-light mr-2">
+                                 <a href=#" class="btn btn-sm bg-success-light mr-2">
                                     <i class="fas fa-pen"></i>
                                  </a>
-                                 <a href="/dilite_course/{{c.pk}}" class="btn btn-sm bg-danger-light">
+                                 <a href="#" class="btn btn-sm bg-danger-light">
                                     <i class="fas fa-trash"></i>
                                  </a>
                               </div>
@@ -64,3 +80,4 @@
    </div>
 </div>
 {%endblock%}
+

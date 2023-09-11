@@ -2,7 +2,6 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from studentapp.models import Course,Session_Year,CoustamUser,Student
 from django.contrib import messages
-
 @login_required(login_url='/')
 def HodHome(request):
     return render(request,'hod/hodhome.html')
@@ -148,5 +147,20 @@ def update_course(request):
     if request.method=="POST":
         course_name=request.POST.get('course_name')
         course_id=request.POST.get('course_id')
-        print(course_name,course_id)
+        # print(course_name,course_id)
+        course=Course.objects.get(id=course_id)
+        course.course_name=course_name
+        course.save()
+        messages.success(request,'Course is successfull updated')
+        return redirect('')
+
+
     return render(request,'hod/edit_course.html')
+
+def dilite_course(request,pk):
+    course=Course.objects.get(id=pk)
+    course.delete()
+    messages.success(request,'Course are successfull delete')
+    return redirect('view_course')
+def View_Staff(request):
+    return render(request,'hod/view_staff.html')
