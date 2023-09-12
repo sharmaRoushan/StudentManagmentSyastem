@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from studentapp.models import Course,Session_Year,CoustamUser,Student
+from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff
 from django.contrib import messages
 @login_required(login_url='/')
 def HodHome(request):
@@ -38,7 +38,7 @@ def addstudent(request):
             user.set_password(password)
             user.save()
             course=Course.objects.get(id=course)
-            session_year=Session_Year.objects.get(id=session_Year_id)
+            session_year=Session_Year.objects.get(id=section_year_id)
 
             student=Student(
                 admin=user,
@@ -123,7 +123,7 @@ def course_add(request):
             course_name=course_add
         )
         course.save()
-        return redirect('add_course')
+        return redirect('view_course')
         messages.success(request,'course are successfully created')
 
     return render(request,'hod/add_course.html')
@@ -152,7 +152,7 @@ def update_course(request):
         course.course_name=course_name
         course.save()
         messages.success(request,'Course is successfull updated')
-        return redirect('')
+        return redirect('view_course')
 
 
     return render(request,'hod/edit_course.html')
@@ -163,4 +163,86 @@ def dilite_course(request,pk):
     messages.success(request,'Course are successfull delete')
     return redirect('view_course')
 def add_Staff(request):
-    return render(request,'hod/view_staff.html')
+    if request.method== "POST":
+        first_name=request.POST['first_name']
+        last_name=request.POST['last_name']
+        username=request.POST['username']
+        email=request.POST['email']
+        password=request.POST['password']
+        address=request.POST['address'] 
+        gender=request.POST['gender']
+        profile_pic=request.FILES['profile_pic']
+        # print(first_name,last_name,username,email,password,profile_pic)
+        if CoustamUser.objects.filter(email=email).exists():
+            messages.warning(request,'Emaial all ready Taken')# check the email 
+            return redirect('view_staff')
+        if CoustamUser.objects.filter(username=username).exists():
+            messages.warning(request,'Username alreay taken')# check the username address
+            return redirect('view_staff')
+        else:
+            user=CoustamUser(
+            first_name=first_name,
+            last_name=last_name,
+            username=username,
+            email=email,
+            profile_pic=profile_pic,
+            user_type=2
+            )
+            user.set_password(password)
+            user.save()
+            staff=Staff(
+                admin=user,
+                address=address,
+                gender=gender
+            )
+            staff.save()
+            messages.success(request,'staff are successfully add')
+            return redirect('view_staff')
+    return render(request,'hod/add_staff.html')
+def view_staff(request):
+    staff=Staff.objects.all()
+    context={
+        'staff':staff,
+    }
+    return render(request,'hod/view_staff.html',context)
+def edit_staff(request, pk):
+    staff=Staff.objects.get(id=pk)
+    context={
+        'staff':staff,
+    }
+    return render(request,'hod/edit_staff.html',context)
+def update_staff(request):
+    if request.method=="POST":
+        staff_id=request.POST['staff_id']
+        # print(staff_id)
+        first_name=request.POST['first_name']
+        last_name=request.POST['last_name']
+        username=request.POST['username']
+        email=request.POST['email']
+        password=request.POST['password']
+        address=request.POST['address']
+        gender=request.POST['gender']
+        profile_pic=request.FILES['profile_pic']
+        user=CoustamUser.objects.get(id=staff_id)
+        user.username=username
+        user.first_name=first_name
+        user.last_name=last_name
+        user.email=email
+        if password!=None and password!="":
+            user.set_password(password)
+        if profile_pic!=None and profile_pic!="":
+            user.profile_pic=profile_pic
+        user.save()
+        staff=Staff.objects.get(admin=staff_id)
+        staff.address=address
+        staff.gender=gender
+        staff.save()
+        messages.success(request,'Recourd are successfull updated')
+        return redirect('view/staff')
+
+
+    return render(request,'hod/edit_staff.html')
+def dilite_staff(request,pk):
+    staff=Staff.objects.get(id=pk)
+    staff.delete()
+    return redirect('view_staff')

@@ -18,6 +18,12 @@ urlpatterns = [
     #  This is hod page url
     path('hod',Hod_views.HodHome,name='hod'),
     path('add_staff',Hod_views.add_Staff,name='add_staf'),
+    path('view/staff',Hod_views.view_staff,name='view_staff'),
+    path('edit_staff/<int:pk>',Hod_views.edit_staff,name='edit_staff'),
+    path('update_staff',Hod_views.update_staff,name='update_staff'),
+    path('dilite_staff/<int:pk>',Hod_views.dilite_staff,name='dilite_staff'),
+
+
     # addstudent tag
     path('student',Hod_views.addstudent,name='student'),
     path('hod/student',Hod_views.view_student,name='hod/student'),
