@@ -39,7 +39,13 @@ urlpatterns = [
     #  add subject url
     path('add_subject',Hod_views.add_subject,name='add_subject'),
     path('view_subject',Hod_views.view_subject,name='view_subject'),
-    path('edit_subject/<int:pk>',Hod_views.edit_subject,name='edit_subject')
+    path('edit_subject/<int:pk>',Hod_views.edit_subject,name='edit_subject'),
+    path('update_subject',Hod_views.update_subject,name='update_subject'),
+    path('subject_delete/<int:pk>',Hod_views.subject_delete,name='subject_delete'), 
+
+    # add  session url
+    path('add_session',Hod_views.add_session,name='add_session'),
+
 
 
     

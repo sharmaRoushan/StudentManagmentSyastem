@@ -8,7 +8,7 @@
                 <h3 class="page-title">Edit Subject</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="subjects.html">{{subject.subject_name}}</a></li>
-                    <li class="breadcrumb-item active">Subject Teacher's Name &nbsp;{{subject.staff}}</li>
+                    <li class="breadcrumb-item active">Subject Teacher's Name &nbsp;{{subject.staff.admin.first_name}}</li>
                 </ul>
             </div>
         </div>
@@ -19,7 +19,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{% url 'add_subject' %}" method="post">
+                    <form action="{% url 'update_subject' %}" method="post">
                         {%csrf_token%}
                         <div class="row">
                             <div class="col-12">
@@ -29,7 +29,9 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label>Subject Name</label>
-                                    <input type="text" class="form-control" name="subject_name">
+                                    <input type="text" class="form-control" name="subject_name" value="{{subject.subject_name}}">
+                                    <input type="text" class="form-control" name="subject_id" value="{{subject.id}}" hidden>
+
                                 </div>
 
                             </div>
@@ -56,9 +58,9 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Edit Subject</button>
+                            <button type="submit" class="btn btn-primary">Update Subject</button>
                         </div>
                 </div>
                 </form>
