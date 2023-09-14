@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff
+from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subject
 from django.contrib import messages
 @login_required(login_url='/')
 def HodHome(request):
@@ -246,3 +246,41 @@ def dilite_staff(request,pk):
     staff=Staff.objects.get(id=pk)
     staff.delete()
     return redirect('view_staff')
+def add_subject(request):
+    course=Course.objects.all()
+    staff=Staff.objects.all()
+    if request.method == "POST":
+        subject_name=request.POST['subject_name']
+        course_id=request.POST['course_id']
+        staff_id=request.POST.get('staff_id')
+
+        course=Course.objects.get(id=course_id)
+        staff=Staff.objects.get(id=staff_id)
+       
+        subject=Subject(
+            subject_name=subject_name,
+            course=course,
+            staff=staff
+        )
+        subject.save()
+        messages.success(request,'add  subject successfuly')
+        return redirect('add_subject')
+    context={
+        'course':course,
+        'staff':staff
+    }
+
+    return render(request,'hod/add_subject.html',context)
+def view_subject(request):
+    subject=Subject.objects.all()
+    context={
+        'subject':subject,
+       
+    }
+    return render(request,'hod/view_subject.html',context)
+def edit_subject(request,pk):
+    subject=Subject.objects.get(id=pk)
+    context={
+        'subject':subject,
+    }
+    return render(request,'hod/edit_subject.html',context)

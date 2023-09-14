@@ -50,6 +50,15 @@ class Staff(models.Model):
     update_at=models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.admin.username
+class Subject(models.Model):
+    subject_name=models.CharField(max_length=50)
+    course=models.ForeignKey(Course,on_delete=models.CASCADE)
+    staff=models.ForeignKey(Staff,on_delete=models.CASCADE)
+    created_at=models.DateTimeField(auto_now_add=True)
+    update_at=models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.subject_name
+
 
 
 

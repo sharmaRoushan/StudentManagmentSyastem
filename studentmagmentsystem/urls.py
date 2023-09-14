@@ -34,7 +34,13 @@ urlpatterns = [
     path('view_course',Hod_views.view_course,name='view_course'),
     path('edit_course/<int:pk>',Hod_views.edit_course,name='edit_course'),
     path('update_course',Hod_views.update_course,name='update_course'),
-    path('dilite_course/<int:pk>',Hod_views.dilite_course,name='dilite_course')
+    path('dilite_course/<int:pk>',Hod_views.dilite_course,name='dilite_course'),
+
+    #  add subject url
+    path('add_subject',Hod_views.add_subject,name='add_subject'),
+    path('view_subject',Hod_views.view_subject,name='view_subject'),
+    path('edit_subject/<int:pk>',Hod_views.edit_subject,name='edit_subject')
+
 
     
 
