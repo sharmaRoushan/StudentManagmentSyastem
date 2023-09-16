@@ -24,7 +24,7 @@ urlpatterns = [
     path('dilite_staff/<int:pk>',Hod_views.dilite_staff,name='dilite_staff'),
 
 
-    # addstudent tag
+    # add student url
     path('student',Hod_views.addstudent,name='student'),
     path('hod/student',Hod_views.view_student,name='hod/student'),
     path('student_edit/<int:pk>',Hod_views.edit_student,name='edit_student'),
@@ -45,8 +45,14 @@ urlpatterns = [
 
     # add  session url
     path('add_session',Hod_views.add_session,name='add_session'),
+    path('view_session',Hod_views.view_session,name='view_session'),
+    path('edit_session/<int:pk>',Hod_views.edit_session,name='edit_session'),
+    path('update_session',Hod_views.update_session,name='update_session'),
+    path('delete_session/<int:pk>',Hod_views.delete_session,name='delete_session'),
 
-
+    # This is staff urls
+    path('staff_home',Staff_views.staff_home,name='staff_home')
+    
 
     
 

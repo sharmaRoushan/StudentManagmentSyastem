@@ -19,7 +19,7 @@ def dologin(request):
             if user_type == '1':
                 return redirect('hod')
             elif user_type == '2':
-                 return HttpResponse('This is staff panal')
+                 return redirect('staff_home')
             elif user_type == '3':
                 return redirect('hod/student')
 

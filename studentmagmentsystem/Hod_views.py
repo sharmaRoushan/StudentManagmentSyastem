@@ -4,7 +4,25 @@ from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subj
 from django.contrib import messages
 @login_required(login_url='/')
 def HodHome(request):
-    return render(request,'hod/hodhome.html')
+    student_count=Student.objects.all().count()
+    satff_count=Staff.objects.all().count()
+    course_count=Course.objects.all().count()
+    subject_count=Subject.objects.all().count()
+    student_gender_male=Student.objects.filter(gender='male').count()
+    student_gender_female=Student.objects.filter(gender='female').count()
+    # print(student_gender_male)
+    # print(student_gender_female)
+
+    context={
+        'student_count':student_count,
+        'satff_count':satff_count,
+        'course_count':course_count,
+        'subject_count':subject_count,
+        'student_gender_male':student_gender_male,
+        "student_gender_female":student_gender_female
+    }
+    print(context)
+    return render(request,'hod/hodhome.html',context)
 @login_required(login_url='/')
 def addstudent(request):
     course=Course.objects.all()
@@ -188,11 +206,11 @@ def add_Staff(request):
         gender=request.POST['gender']
         profile_pic=request.FILES['profile_pic']
         # print(first_name,last_name,username,email,password,profile_pic)
-        if CoustamUser.objects.filter(email=email).exists():
-            messages.warning(request,'Emaial all ready Taken')# check the email 
+        if CoustamUser.objects.filter(email=email).exists():# check the email
+            messages.warning(request,'Emaial all ready Taken') 
             return redirect('view_staff')
-        if CoustamUser.objects.filter(username=username).exists():
-            messages.warning(request,'Username alreay taken')# check the username address
+        if CoustamUser.objects.filter(username=username).exists():# check the username address
+            messages.warning(request,'Username alreay taken')
             return redirect('view_staff')
         else:
             user=CoustamUser(
@@ -211,7 +229,7 @@ def add_Staff(request):
                 gender=gender
             )
             staff.save()
-            messages.success(request,'staff are successfully add')
+            messages.success(request,'staff are successfully Added')
             return redirect('view_staff')
     return render(request,'hod/add_staff.html')
 @login_required(login_url='/')
@@ -288,7 +306,7 @@ def add_subject(request):
         )
         subject.save()
         messages.success(request,'add  subject successfuly')
-        return redirect('add_subject')
+        return redirect('view_subject')
     context={
         'course':course,
         'staff':staff
@@ -352,5 +370,36 @@ def add_session(request):
         )
         session.save()
         messages.success(request,'Session Year successfully added')
-        return redirect('add_session')
+        return redirect('view_session')
     return render(request,'hod/add_session.html')
+def view_session(request):
+    session=Session_Year.objects.all()
+    context={
+        'session':session,
+    }
+    return render(request,'hod/view_session.html',context)
+def edit_session(request,pk):
+    session=Session_Year.objects.get(id=pk)
+    # print(session)
+    context={
+        'session':session,
+    }
+    return render(request,'hod/edit_session.html',context)
+def update_session(request):
+    if request.method == "POST":
+        session_id=request.POST['session_id']
+        session_start=request.POST['session_start']
+        session_end=request.POST['session_end']
+        session=Session_Year(
+            id=session_id,
+            session_start=session_start,
+            session_end=session_end
+        )
+        session.save()
+        messages.success(request,'session are Successfully Updated')
+        return redirect('view_session')
+    return render (request,'hod/edit_session.html')
+def delete_session(request,pk):
+    session=Session_Year.objects.get(id=pk)
+    session.delete()
+    return redirect('view_session')
