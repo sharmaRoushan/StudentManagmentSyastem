@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subject
+from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subject,Staff_notification
 from django.contrib import messages
 @login_required(login_url='/')
 def HodHome(request):
@@ -21,7 +21,7 @@ def HodHome(request):
         'student_gender_male':student_gender_male,
         "student_gender_female":student_gender_female
     }
-    print(context)
+    # print(context)
     return render(request,'hod/hodhome.html',context)
 @login_required(login_url='/')
 def addstudent(request):
@@ -67,7 +67,7 @@ def addstudent(request):
 
             )
             student.save()
-            messages.success(request,user.first_name+" "+user.last_name+"are Successfull Add Your acount")
+            messages.success(request,user.first_name+" "+user.last_name+"   are Successfull Add Your acount")
             return redirect('hod/student')
         # print(first_name,last_name,username,email,password,address,course_id,section_year_id,gender,profile_pic)
     context={
@@ -403,3 +403,20 @@ def delete_session(request,pk):
     session=Session_Year.objects.get(id=pk)
     session.delete()
     return redirect('view_session')
+def Send_notification(request):
+    staff=Staff.objects.all()
+    context={
+        'staff':staff,
+    }
+    return render(request,'hod/send_notification.html',context)
+def save_staff_notification(request):
+    if request.method == "POST":
+        staff_id=request.POST.get('staff_id')
+        messages=request.POST.get('massages')
+        staff=Staff.objects.get(admin=staff_id)
+        notification=Staff_notification(
+            staff_id=staff,
+            message=messages
+        )
+        notification.save()
+        return redirect ('send_notification')

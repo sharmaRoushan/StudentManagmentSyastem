@@ -49,6 +49,9 @@ urlpatterns = [
     path('edit_session/<int:pk>',Hod_views.edit_session,name='edit_session'),
     path('update_session',Hod_views.update_session,name='update_session'),
     path('delete_session/<int:pk>',Hod_views.delete_session,name='delete_session'),
+    path('send_notification',Hod_views.Send_notification,name='send_notification'),
+    path('save_notification',Hod_views.save_staff_notification,name='save_notification'),
+
 
     # This is staff urls
     path('staff_home',Staff_views.staff_home,name='staff_home')

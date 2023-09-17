@@ -8,7 +8,7 @@ admin.site.register(Session_Year)
 admin.site.register(Student)
 admin.site.register(Staff)
 admin.site.register(Subject)
-
+admin.site.register(Staff_notification)
 
 class UserModel(UserAdmin):
     list_display=['username','user_type']
