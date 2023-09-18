@@ -54,7 +54,8 @@ urlpatterns = [
 
 
     # This is staff urls
-    path('staff_home',Staff_views.staff_home,name='staff_home')
+    path('staff_home',Staff_views.staff_home,name='staff_home'),
+    path('notification',Staff_views.Notification,name='notification')
     
 
     

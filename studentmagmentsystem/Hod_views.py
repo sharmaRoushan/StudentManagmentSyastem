@@ -253,7 +253,7 @@ def edit_staff(request, pk):
 def update_staff(request):
     if request.method=="POST":
         staff_id=request.POST['staff_id']
-        # print(staff_id)
+        print(staff_id)
         first_name=request.POST['first_name']
         last_name=request.POST['last_name']
         username=request.POST['username']
@@ -278,8 +278,6 @@ def update_staff(request):
         staff.save()
         messages.success(request,'Recourd are successfull updated')
         return redirect('view/staff')
-
-
     return render(request,'hod/edit_staff.html')
 @login_required(login_url='/')
 
@@ -363,7 +361,7 @@ def add_session(request):
     if request.method == "POST":
         session_start=request.POST['session_start']
         session_end=request.POST['session_end']
-        print(session_start,session_end)
+        # print(session_start,session_end)
         session=Session_Year(
             session_start=session_start,
             session_end=session_end
@@ -405,18 +403,21 @@ def delete_session(request,pk):
     return redirect('view_session')
 def Send_notification(request):
     staff=Staff.objects.all()
+    see_notification=Staff_notification.objects.all().order_by('-id')[0:5]
     context={
         'staff':staff,
+        'see_notification':see_notification,
     }
     return render(request,'hod/send_notification.html',context)
 def save_staff_notification(request):
     if request.method == "POST":
         staff_id=request.POST.get('staff_id')
-        messages=request.POST.get('massages')
+        massage=request.POST.get('massage')
         staff=Staff.objects.get(admin=staff_id)
-        notification=Staff_notification(
-            staff_id=staff,
-            message=messages
+        notified=Staff_notification(
+            staff_id=staff, 
+            message=massage
         )
-        notification.save()
-        return redirect ('send_notification')
+        messages.success(request,"notification's are successfully sent")
+        notified.save()
+    return redirect ('send_notification')

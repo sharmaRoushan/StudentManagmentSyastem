@@ -60,8 +60,10 @@ class Subject(models.Model):
         return self.subject_name
 class Staff_notification(models.Model):
     staff_id=models.ForeignKey(Staff,on_delete=models.CASCADE)
-    message=models.TextField()
+    message=models.TextField(null=True)
     created_at=models.DateTimeField(auto_now_add=True)
+    status=models.IntegerField(null=True,default=0)
+
    
     def __str__(self):
         return self.staff_id.admin.first_name

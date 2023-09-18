@@ -1,14 +1,12 @@
-{%extends 'base.html' %}
-{%block content%}
-
-
+{%extends 'base.html'%}
+{% block content%}
 <div class="content container-fluid">
     <div class="page-header">
        <div class="row align-items-center">
           <div class="col">
-             <h3 class="page-title">View Session</h3>
+             <h3 class="page-title">Students</h3>
              <ul class="breadcrumb">
-                <li class="breadcrumb-item active"></li>
+                <li class="breadcrumb-item active">{{user.first_name}}</li>
  
              </ul>
  
@@ -30,27 +28,24 @@
                    <table class="table table-hover table-center mb-0 datatable">
                       <thead>
                          <tr>
-                            <th>ID</th>
-                            <th>Session Year Start</th>
-                            <th>Session Year end</th>
+                            <th>Massage</th>
+                            
                             <th class="text-right">Action</th>
                          </tr>
                       </thead>
                       <tbody>
-                         {%for sess in session %}
+                         {%for s in notification %}
                          <tr>
-                            <td>{{sess.id}}</td>
-                            <td>{{sess.session_start}}</td>
-                            <td>{{sess.session_end}}</td>
+                            <td>{{s.message}}</td>
                             <td class="text-right">
-                               <div class="actions">
-                                  <a href="/edit_session/{{sess.pk}}" class="btn btn-sm bg-success-light mr-2">
-                                     <i class="fas fa-pen"></i>
-                                  </a>
-                                  <a href="/delete_session/{{sess.pk}}" class="btn btn-sm bg-danger-light">
-                                     <i class="fas fa-trash"></i>
-                                  </a>
-                               </div>
+                                <div class="action">
+                                    {%if s.status == 0%}
+                                    <button class="badge badge-danger">Mark As Done</button>
+                                    {%else%}
+                                    <button class="badge badge-danger" disabled="disabled">Mark As Done</button>
+                                    {%endif%}
+                                </div>
+                              
                             </td>
                          </tr>
                          {%endfor%}
