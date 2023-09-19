@@ -4,7 +4,7 @@
     <div class="page-header">
        <div class="row align-items-center">
           <div class="col">
-             <h3 class="page-title">Students</h3>
+             <h3 class="page-title">Staff</h3>
              <ul class="breadcrumb">
                 <li class="breadcrumb-item active">{{user.first_name}}</li>
  
@@ -34,13 +34,13 @@
                          </tr>
                       </thead>
                       <tbody>
-                         {%for s in notified %}
+                         {% for s in Rk %}
                          <tr>
                             <td>{{s.message}}</td>
                             <td class="text-right">
                                 <div class="action">
                                     {% if s.status == 0 %}
-                                    <button class="badge badge-danger">Mark As Done</button>
+                                    <a  href="{% url 'mark_done' status=s.id %}"class=" badge badge-danger" ">Mark As Done</a>
                                     {%else%}
                                     <button class="badge badge-danger" disabled="disabled">Mark As Done</button>
                                     {%endif%}

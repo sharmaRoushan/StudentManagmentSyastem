@@ -194,7 +194,6 @@ def dilite_course(request,pk):
     messages.success(request,'Course are successfull delete')
     return redirect('view_course')
 @login_required(login_url='/')
-
 def add_Staff(request):
     if request.method== "POST":
         first_name=request.POST['first_name']
@@ -207,7 +206,7 @@ def add_Staff(request):
         profile_pic=request.FILES['profile_pic']
         # print(first_name,last_name,username,email,password,profile_pic)
         if CoustamUser.objects.filter(email=email).exists():# check the email
-            messages.warning(request,'Emaial all ready Taken') 
+            messages.warning(request,'Email all ready Taken') 
             return redirect('view_staff')
         if CoustamUser.objects.filter(username=username).exists():# check the username address
             messages.warning(request,'Username alreay taken')

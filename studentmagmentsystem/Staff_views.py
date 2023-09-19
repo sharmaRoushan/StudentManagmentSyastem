@@ -7,12 +7,18 @@ def staff_home(request):
 def Notification(request):
     staff=Staff.objects.filter(admin=request.user.id)
     # print(staff)
-    for staf in staff:
-        staff_id=staf.pk
-
-        notified=Staff_notification.objects.filter(staff_id=staff_id)
+    for s in staff:
+        staff_id=s.id
+        # print(s.id)
+        Rk=Staff_notification.objects.filter(staff_id=staff_id)
         context={
-            'notified':notified,
+          'Rk':Rk
         }
-    
+        
     return render(request,'staff/notification.html',context)
+def staff_mark_done(request,status):
+    notification=Staff_notification.objects.get(id=status)
+    notification.status=1
+    notification.save()
+
+    return redirect('notification')
