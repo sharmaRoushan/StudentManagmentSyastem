@@ -34,12 +34,12 @@
                          </tr>
                       </thead>
                       <tbody>
-                         {%for s in notification %}
+                         {%for s in notified %}
                          <tr>
                             <td>{{s.message}}</td>
                             <td class="text-right">
                                 <div class="action">
-                                    {%if s.status == 0%}
+                                    {% if s.status == 0 %}
                                     <button class="badge badge-danger">Mark As Done</button>
                                     {%else%}
                                     <button class="badge badge-danger" disabled="disabled">Mark As Done</button>

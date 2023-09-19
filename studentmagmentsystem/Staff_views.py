@@ -8,10 +8,11 @@ def Notification(request):
     staff=Staff.objects.filter(admin=request.user.id)
     # print(staff)
     for staf in staff:
-        # print(staf.pk)
-        staf_id=staf.pk
-        notification=Staff_notification.objects.filter(staff_id=staf_id)
+        staff_id=staf.pk
+
+        notified=Staff_notification.objects.filter(staff_id=staff_id)
         context={
-            'notification':notification
+            'notified':notified,
         }
+    
     return render(request,'staff/notification.html',context)
