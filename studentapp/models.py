@@ -56,7 +56,7 @@ class Subject(models.Model):
     staff=models.ForeignKey(Staff,on_delete=models.CASCADE)
     created_at=models.DateTimeField(auto_now_add=True,null=True)
     update_at=models.DateTimeField(auto_now=True)
-    def __str__(self):
+    def __str__(self):                                  
         return self.subject_name
 class Staff_notification(models.Model):
     staff_id=models.ForeignKey(Staff,on_delete=models.CASCADE)

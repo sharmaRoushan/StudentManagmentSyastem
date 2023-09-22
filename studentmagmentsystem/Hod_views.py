@@ -252,7 +252,7 @@ def edit_staff(request, pk):
 def update_staff(request):
     if request.method=="POST":
         staff_id=request.POST['staff_id']
-        print(staff_id)
+        # print(staff_id)
         first_name=request.POST['first_name']
         last_name=request.POST['last_name']
         username=request.POST['username']
