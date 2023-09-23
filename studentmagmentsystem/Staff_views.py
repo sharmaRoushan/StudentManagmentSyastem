@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from studentapp.models import Staff,Staff_notification
+from studentapp.models import Staff,Staff_notification,Staff_leave
+from django. contrib import messages
 @login_required(login_url="/")
 def staff_home(request):
     return render(request,'staff/staffhome.html')
@@ -23,3 +24,20 @@ def staff_mark_done(request,status):
     notification.save()
 
     return redirect('notification')
+def staff_leave(request):
+    return render (request,'staff/staff_leave.html')
+
+def staff_apply_save(request):
+    if request.method =="POST":
+        leave_date=request.POST['leave_date']
+        leave_message=request.POST['leave_message']
+        staff = Staff.objects.get(admin=request.user)
+        # print(staff)
+        leave_in=Staff_leave(
+            staff_id=staff,
+            data=leave_date,
+            message=leave_message,
+        )
+        leave_in.save()
+        messages.success(request,"Apply for leave")
+        return redirect('staff_leave')

@@ -52,7 +52,7 @@ class Staff(models.Model):
         return self.admin.username
 class Subject(models.Model):
     subject_name=models.CharField(max_length=50)
-    course=models.ForeignKey(Course,on_delete=models.CASCADE)
+    course=models.ForeignKey(Course,on_delete=models.CASCADE,null=True)
     staff=models.ForeignKey(Staff,on_delete=models.CASCADE)
     created_at=models.DateTimeField(auto_now_add=True,null=True)
     update_at=models.DateTimeField(auto_now=True)
@@ -67,15 +67,15 @@ class Staff_notification(models.Model):
    
     def __str__(self):
         return self.staff_id.admin.first_name
-class staff_leave(models.Model):
+class Staff_leave(models.Model):
     staff_id=models.ForeignKey(Staff,on_delete=models.CASCADE)
     data=models.CharField(max_length=100)
     message=models.TextField()
     status=models.IntegerField(default=0)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now_add=True)
-    # def __str__(self):
-    #     return self.staff_id.admin.first_name + self.staff_id.admin.last_name
+    def __str__(self):
+        return self.staff_id.admin.first_name +" "+ self.staff_id.admin.last_name
 
 
 

@@ -9,7 +9,7 @@ admin.site.register(Student)
 admin.site.register(Staff)
 admin.site.register(Subject)
 admin.site.register(Staff_notification)
-admin.site.register(staff_leave)
+admin.site.register(Staff_leave)
 
 class UserModel(UserAdmin):
     list_display=['username','user_type']
