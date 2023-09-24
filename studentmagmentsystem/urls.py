@@ -58,6 +58,10 @@ urlpatterns = [
     path('notification',Staff_views.staff_notification,name='notification'),
     path('mark_done/<str:status>',Staff_views.staff_mark_done,name='mark_done'),
     path('staff_leave',Staff_views.staff_leave,name='staff_leave'),
-    path('staff_apply_save',Staff_views.staff_apply_save,name='staff_apply_save')
+    path('staff_apply_save',Staff_views.staff_apply_save,name='staff_apply_save'),
+    path('holiday_view',Hod_views.Sataf_leave_view,name='holiday_view'),
+    path ('approve_leave/<int:pk>',Hod_views.Staff_approve_leave,name='approve_leave'),
+    path ('diss_approve_leave/<int:pk>',Hod_views.Staff_dissapprove_leave,name='diss_approve_leave'),
+
     
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

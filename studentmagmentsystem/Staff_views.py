@@ -25,7 +25,17 @@ def staff_mark_done(request,status):
 
     return redirect('notification')
 def staff_leave(request):
-    return render (request,'staff/staff_leave.html')
+        staff=Staff.objects.filter(admin=request.user.id)
+        for sl in staff:
+            staff_id=sl.id
+        # print(sl.id)
+        # print(staff)
+        staff_leave_history=Staff_leave.objects.get(staff_id=staff_id)
+        context={
+            'staff_leave_history':staff_leave_history,
+        }
+        # print(context)
+        return render (request,'staff/staff_leave.html',context)
 
 def staff_apply_save(request):
     if request.method =="POST":
@@ -40,4 +50,4 @@ def staff_apply_save(request):
         )
         leave_in.save()
         messages.success(request,"Apply for leave")
-        return redirect('staff_leave')
+    return redirect('staff_leave')

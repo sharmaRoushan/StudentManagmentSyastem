@@ -12,6 +12,7 @@
             <button class="btn btn-primary mr-2" type="button" class="btn btn-primary" data-toggle="modal"
                 data-target="#staticBackdrop"><i class="fa fa-history"></i>&nbsp;Leave Apply History</a>
                 <!-- <a href="add-student.html" class="btn btn-primary"><i class="fas fa-plus"></i></a> -->
+
         </div>
     </div>
 </div>
@@ -23,6 +24,8 @@
                 <div class="col-12">
                     <h5 class="form-title"><span>Apply For Leave</span></h5>
                 </div>
+                {% include 'includes/messages.html'%}
+
                 <div class="col-12 col-sm-4">
                     <div class="form-group">
                         <label>Leave Date</label>
@@ -58,50 +61,50 @@
             <div class="modal-body">
                 <div class="col-sm-12">
                     <div class="card card-table">
-                       <div class="card-body">
-                          <div class="table-responsive">
-                             <table class="table table-hover table-center mb-0 datatable">
-                                <thead>
-                                   <tr>
-                                      <th>ID</th>
-                                      <th>Course Name</th>
-                                      <th>Created At</th>
-                                      <th>Update At</th>
-                                      <th class="text-right">Action</th>
-                                   </tr>
-                                </thead>
-                                <tbody>
-                                   {%for c in course %}
-                                   <tr>
-                                      <td>{{c.id}}</td>
-                                      <td>{{c.course_name}}</td>
-                                      <td>{{c.created_at}}</td>
-                                      <td>{{c.update_at}}</td>
-                                      <td class="text-right">
-                                         <div class="actions">
-                                            <a href="/edit_course/{{c.pk}}" class="btn btn-sm bg-success-light mr-2">
-                                               <i class="fas fa-pen"></i>
-                                            </a>
-                                            <a href="/dilite_course/{{c.pk}}" class="btn btn-sm bg-danger-light">
-                                               <i class="fas fa-trash"></i>
-                                            </a>
-                                         </div>
-                                      </td>
-                                   </tr>
-                                   {%endfor%}
-                                </tbody>
-                             </table>
-                          </div>
-                       </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-center mb-0 datatable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Date</th>
+                                            <th>Message</th>
+                                            <th class="text-right">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {%for sl in staff_leave_history %}
+                                        <tr>
+                                            <td>{{sl.id}}</td>
+                                            <td>{{sl.data}}</td>
+                                            <td>{{sl.message}}</td>
+                                            <td class="text-right">
+                                                <!-- <div class="actions">
+                                                    <a href="/edit_course/{{c.pk}}"
+                                                        class="btn btn-sm bg-success-light mr-2">
+                                                        <i class="fas fa-pen"></i>
+                                                    </a>
+                                                    <a href="/dilite_course/{{c.pk}}"
+                                                        class="btn btn-sm bg-danger-light">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </div> -->
+                                            </td>
+                                        </tr>
+                                        {%endfor%}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                 </div>
-        </div>
-        <!-- <div class="modal-footer">
+                </div>
+            </div>
+            <!-- <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">Understood</button>
         </div> -->
+        </div>
     </div>
-</div>
 </div>
 
 {%endblock%}
