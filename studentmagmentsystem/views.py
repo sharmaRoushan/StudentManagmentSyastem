@@ -40,6 +40,7 @@ def pudate(request):
         'user':user,
     }
     return render(request,'profile.html')
+@login_required(login_url='/')
 def updateprofile(request):
     if request.method == 'POST':
         # profile_pic=request.FILES['profile_pic']

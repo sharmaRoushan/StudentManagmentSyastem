@@ -369,12 +369,14 @@ def add_session(request):
         messages.success(request,'Session Year successfully added')
         return redirect('view_session')
     return render(request,'hod/add_session.html')
+@login_required(login_url="/")
 def view_session(request):
     session=Session_Year.objects.all()
     context={
         'session':session,
     }
     return render(request,'hod/view_session.html',context)
+@login_required(login_url="/")
 def edit_session(request,pk):
     session=Session_Year.objects.get(id=pk)
     # print(session)
@@ -382,6 +384,7 @@ def edit_session(request,pk):
         'session':session,
     }
     return render(request,'hod/edit_session.html',context)
+@login_required(login_url="/")
 def update_session(request):
     if request.method == "POST":
         session_id=request.POST['session_id']
@@ -396,10 +399,12 @@ def update_session(request):
         messages.success(request,'session are Successfully Updated')
         return redirect('view_session')
     return render (request,'hod/edit_session.html')
+@login_required(login_url="/")
 def delete_session(request,pk):
     session=Session_Year.objects.get(id=pk)
     session.delete()
     return redirect('view_session')
+@login_required(login_url="/")
 def Send_notification(request):
     staff=Staff.objects.all()
     see_notification=Staff_notification.objects.all().order_by('-id')[0:5]
@@ -408,6 +413,7 @@ def Send_notification(request):
         'see_notification':see_notification,
     }
     return render(request,'hod/send_notification.html',context)
+@login_required(login_url="/")
 def save_staff_notification(request):
     if request.method == "POST":
         staff_id=request.POST.get('staff_id')
@@ -420,6 +426,7 @@ def save_staff_notification(request):
         messages.success(request,"notification's are successfully sent")
         notified.save()
     return redirect ('send_notification')
+@login_required(login_url="/")
 def Sataf_leave_view(request):
     staff_leave=Staff_leave.objects.all() 
     context={
@@ -427,11 +434,13 @@ def Sataf_leave_view(request):
 
     }
     return render(request,'hod/staff_leave_view.html',context)
+@login_required(login_url="/")
 def Staff_approve_leave(request,pk):
     leave=Staff_leave.objects.get(id=pk)
     leave.status=1
     leave.save()
     return redirect('holiday_view')
+@login_required(login_url="/")
 def Staff_dissapprove_leave(request,pk):
     leave=Staff_leave.objects.get(id=pk)
     leave.status=2

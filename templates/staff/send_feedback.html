@@ -1,9 +1,9 @@
 {%extends 'base.html'%}
-{%block content%}
+{% block content %}
 <div class="page-header">
     <div class="row align-items-center">
         <div class="col">
-            <h3 class="page-title">Staff</h3>
+            <h3 class="page-title">FEEDBACK</h3>
             <ul class="breadcrumb">
                 <li class="breadcrumb-item active">{{user.first_name}}</li>
             </ul>
@@ -22,7 +22,7 @@
             <form method="post" action="{% url 'staff_apply_save' %}">
                 {% csrf_token %}
                 <div class="col-12">
-                    <h5 class="form-title"><span>Apply For Leave</span></h5>
+                    <h5 class="form-title"><span>FEEDBACK</span></h5>
                 </div>
                 {% include 'includes/messages.html'%}
 
@@ -107,5 +107,6 @@
         </div>
     </div>
 </div>
+
 
 {%endblock%}

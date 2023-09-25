@@ -63,5 +63,7 @@ urlpatterns = [
     path ('approve_leave/<int:pk>',Hod_views.Staff_approve_leave,name='approve_leave'),
     path ('diss_approve_leave/<int:pk>',Hod_views.Staff_dissapprove_leave,name='diss_approve_leave'),
 
+    path('send_feedback',Staff_views.apply_feedback,name='send_feedback')
+
     
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
