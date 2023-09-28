@@ -10,37 +10,29 @@
         </div>
         <div class="col-auto text-right float-right ml-auto">
             <button class="btn btn-primary mr-2" type="button" class="btn btn-primary" data-toggle="modal"
-                data-target="#staticBackdrop"><i class="fa fa-history"></i>&nbsp;Leave Apply History</a>
+                data-target="#staticBackdrop"><i class="fa-solid fa-message"></i>&nbsp;Feedback History</a>
                 <!-- <a href="add-student.html" class="btn btn-primary"><i class="fas fa-plus"></i></a> -->
-
         </div>
     </div>
 </div>
 <div class="col-sm-12">
     <div class="card">
         <div class="card-body">
-            <form method="post" action="{% url 'staff_apply_save' %}">
+            <form method="POST" action="{% url 'feedback_save' %}">
                 {% csrf_token %}
                 <div class="col-12">
                     <h5 class="form-title"><span>FEEDBACK</span></h5>
                 </div>
                 {% include 'includes/messages.html'%}
-
-                <div class="col-12 col-sm-4">
-                    <div class="form-group">
-                        <label>Leave Date</label>
-                        <input type="date" class="form-control" name="leave_date" required>
-                    </div>
-                </div>
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
-                        <label>Leave Message</label>
-                        <textarea class="form-control" name="leave_message" style="height: 250px;"
+                        <label>Feedback Message</label>
+                        <textarea class="form-control" name="feedback" style="height: 250px;"
                             placeholder=" Enter Message" required></textarea>
                     </div>
                 </div>
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Leave Apply</button>
+                    <button type="submit" class="btn btn-primary">Send Feedback</button>
                 </div>
             </form>
         </div>
@@ -67,45 +59,50 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Date</th>
-                                            <th>Message</th>
-                                            <th class="text-right">Status</th>
+                                            <th>Feedback</th>
+                                            <th>Reply</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {%for sl in staff_leave_history %}
+                                        {%for fb in feedback_history %}
                                         <tr>
-                                            <td>{{sl.id}}</td>
-                                            <td>{{sl.data}}</td>
-                                            <td>{{sl.message}}</td>
-                                            <td class="text-right">
-                                                <div class="actions">
-                                                    {% if sl.status == 0 %}
-                                                    <span class="badge badge-info">Request are pending</span>                                                     
-                                                    {% elif sl.status == 1 %}
-                                                    <span class="badge badge-success">Approbed</span>
-                                                    {%else%}
-                                                    <span class="badge badge-danger">Rejected</span>
+                                            <td>{{fb.id}}</td>
+                                            <td>{{fb.feedback}}</td>
+                                            {% if fb.feedback_reply == "" %}
 
-                                                    {%endif%}
-                                                </div>
+                                            <td>
+                                                <span class="badge badge-danger">No Replay</span>
+
                                             </td>
-                                        </tr>
-                                        {%endfor%}
-                                    </tbody>
-                                </table>
+                                            {%else%}
+
+                                            <td>
+                                                {{fb.feedback_reply}}
+
+                                            </td>
+                                            {%endif%}
+
+
+
+
                             </div>
+                            </td>
+                            </tr>
+                            {%endfor%}
+                            </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <div class="modal-footer">
+        </div>
+        <!-- <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">Understood</button>
         </div> -->
-        </div>
     </div>
+</div>
 </div>
 
 

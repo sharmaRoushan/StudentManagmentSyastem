@@ -51,6 +51,8 @@ urlpatterns = [
     path('delete_session/<int:pk>',Hod_views.delete_session,name='delete_session'),
     path('send_notification',Hod_views.Send_notification,name='send_notification'),
     path('save_notification',Hod_views.save_staff_notification,name='save_notification'),
+    path('staff_feedback',Hod_views.Staff_feedback,name='staff_feedback'),
+    path('staf_feedback_save_reply',Hod_views.staff_feedback_reply_save,name='staff_feedback_save_reply'),
 
 
     # This is staff urls
@@ -60,10 +62,11 @@ urlpatterns = [
     path('staff_leave',Staff_views.staff_leave,name='staff_leave'),
     path('staff_apply_save',Staff_views.staff_apply_save,name='staff_apply_save'),
     path('holiday_view',Hod_views.Sataf_leave_view,name='holiday_view'),
-    path ('approve_leave/<int:pk>',Hod_views.Staff_approve_leave,name='approve_leave'),
-    path ('diss_approve_leave/<int:pk>',Hod_views.Staff_dissapprove_leave,name='diss_approve_leave'),
+    path('approve_leave/<int:pk>',Hod_views.Staff_approve_leave,name='approve_leave'),
+    path('diss_approve_leave/<int:pk>',Hod_views.Staff_dissapprove_leave,name='diss_approve_leave'),
+    path('send_feedback',Staff_views.apply_feedback,name='send_feedback'),
+    path('feedback_save',Staff_views.Save_Feedback,name='feedback_save'),
 
-    path('send_feedback',Staff_views.apply_feedback,name='send_feedback')
 
     
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

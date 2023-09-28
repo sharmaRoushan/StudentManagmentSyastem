@@ -40,7 +40,7 @@
                             <td class="text-right">
                                 <div class="action">
                                     {% if s.status == 0 %}
-                                    <a  href="{% url 'mark_done' status=s.id %}"class=" badge badge-danger" ">Mark As Done</a>
+                                    <a  href="{% url 'mark_done' status=s.id %}"class="badge badge-danger">Mark As Done</a>
                                     {%else%}
                                     <button class="badge badge-danger" disabled="disabled">Mark As Done</button>
                                     {%endif%}

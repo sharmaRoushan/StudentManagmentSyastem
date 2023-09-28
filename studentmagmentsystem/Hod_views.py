@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subject,Staff_notification,Staff_leave
+from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subject,Staff_notification,Staff_leave,Feedback
 from django.contrib import messages
 @login_required(login_url='/')
 def HodHome(request):
@@ -412,6 +412,7 @@ def Send_notification(request):
         'staff':staff,
         'see_notification':see_notification,
     }
+    print(context)
     return render(request,'hod/send_notification.html',context)
 @login_required(login_url="/")
 def save_staff_notification(request):
@@ -421,11 +422,11 @@ def save_staff_notification(request):
         staff=Staff.objects.get(admin=staff_id)
         notified=Staff_notification(
             staff_id=staff, 
-            message=massage
+            message=massage,
         )
-        messages.success(request,"notification's are successfully sent")
         notified.save()
-    return redirect ('send_notification')
+        messages.success(request,"notification's successfully sent")
+        return redirect ('send_notification')
 @login_required(login_url="/")
 def Sataf_leave_view(request):
     staff_leave=Staff_leave.objects.all() 
@@ -446,3 +447,17 @@ def Staff_dissapprove_leave(request,pk):
     leave.status=2
     leave.save()
     return redirect('holiday_view')
+def Staff_feedback(request):
+    feedback=Feedback.objects.all()
+    context={
+        'feedback':feedback
+    }
+    return render(request,'hod/staff_feedback.html',context)
+def staff_feedback_reply_save(request):
+    if request.method=="POST":
+        feedback_id=request.POST['feedback_id']
+        feedback_reply=request.POST['feedback_reply']
+        feedback=Feedback.objects.get(id=feedback_id)
+        feedback_reply=feedback_reply
+        feedback.save()
+    return redirect('staff_feedback')

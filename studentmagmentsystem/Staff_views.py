@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from studentapp.models import Staff,Staff_notification,Staff_leave
+from studentapp.models import Staff,Staff_notification,Staff_leave,Feedback
 from django. contrib import messages
 @login_required(login_url="/")
 def staff_home(request):
@@ -14,7 +14,7 @@ def staff_notification(request):
         # print(s.id)
         notifi=Staff_notification.objects.filter(staff_id=staff_id)
         context={
-            'notifi':notifi
+            'notifi':notifi,
         }
 
         # print(context)    
@@ -43,9 +43,9 @@ def staff_leave(request):
 @login_required(login_url="/")
 def staff_apply_save(request):
     if request.method =="POST":
-        leave_date=request.POST['leave_date']
+        leave_date=request.POST.get('leave_date')
         leave_message=request.POST['leave_message']
-        staff = Staff.objects.get(admin=request.user)
+        staff = Staff.objects.get(admin=request.user.id)
         # print(staff)
         leave_in=Staff_leave(
             staff_id=staff,
@@ -54,6 +54,26 @@ def staff_apply_save(request):
         )
         leave_in.save()
         messages.success(request,"Apply for leave")
-    return redirect('staff_leave') 
+        return redirect('staff_leave') 
 def apply_feedback(request):
-    return render(request,'staff/send_feedback.html') 
+    staff_id=Staff.objects.get(admin=request.user.id)
+    feedback_history=Feedback.objects.filter(staff_id=staff_id)
+    context={
+        'feedback_history':feedback_history
+    }
+    return render(request,'staff/send_feedback_staff.html',context)
+def Save_Feedback(request):
+    if request.method=="POST":
+        feedback=request.POST['feedback']
+        # staff=Staff.objects.get(admin=request.user.id)
+        staff=Staff.objects.get(admin=request.user.id)
+        # print(staff)
+        feedback=Feedback(
+            staff_id=staff,
+            feedback=feedback,
+            feedback_reply="",
+        )
+        # print(feedback) 
+        feedback.save()   
+        messages.success(request,'Sent feedback successfully')        
+    return redirect('send_feedback')

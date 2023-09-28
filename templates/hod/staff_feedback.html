@@ -1,10 +1,11 @@
 {%extends 'base.html'%}
+
 {%block content%}
 <div class="content container-fluid">
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="page-title"><u><i>Staff&nbsp;Notifications</i></u></h3>
+                <h3 class="page-title"><u><i>Staff&nbsp;Feedback</i></u></h3>
                 <ul class="breadcrumb">
                     {% include 'includes/messages.html'%}
 
@@ -16,7 +17,7 @@
                 <!-- <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
              <a href="add-student.html" class="btn btn-primary"><i class="fas fa-plus"></i></a> -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                    View All Messages
+                        Show All feedback
                 </button>
             </div>
         </div>
@@ -30,36 +31,41 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-
-
+                                    <th> Staff Name</th>
+                                    <th>Feedback</th>
+                                    <th>Date</th>
                                     <th class="text-right">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for staf in staff %}
+                                {% for feed in feedback %}
                                 <tr>
-                                    <td>{{staf.id}}</td>
-                                    <td>
+                                    <td>{{feed.id}}</td>
+
+                                    
+
+                                     <td>
                                         <h2 class="table-avatar">
                                             <a href="student-details.html" class="avatar avatar-sm mr-2">
 
-                                                <img class="avatar-img rounded-circle" src="/{{staf.admin.profile_pic}}"
+                                                <img class="avatar-img rounded-circle" src="/{{feed.staff_id.admin.profile_pic}}"
                                                     alt="User Image">
 
                                             </a>
                                             <a
-                                                href="student-details.html">{{staf.admin.first_name}}&nbsp;{{staf.admin.last_name}}</a>
+                                                href="student-details.html">{{feed.staff_id.admin.first_name}}&nbsp;{{feed.staff_id.admin.last_name}}</a>
                                         </h2>
                                     </td>
-                                    <td>{{staf.admin.email}}</td>
+                                    <td>{{feed.feedback}}</td>
+                                    <td>{{feed.created_at}}</td>
+
+
 
 
                                     <td class="text-right">
                                         <button type="button" class="btn btn-success" data-toggle="modal"
                                             data-target="#exampleModal{{forloop.counter}}">
-                                            Send Messages
+                                            Reply Feedback
                                         </button>
                                     </td>
                                 </tr>
@@ -93,8 +99,8 @@
                                     <table class="table table-hover table-center mb-0 datatable">
                                         <thead>
                                             <tr>
-                                                <th style="width:60%;">Massage</th>
-                                                <th style="width:30%;" class="text-right">Status</th>
+                                                <th style="width:60%;">Feedback</th>
+                                                <th style="width:30%;" class="text-right">Reply</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -126,27 +132,27 @@
     </div>
 </div>
 <!-- send notification model -->
-{% for s in staff %}
+{% for feed in feedback %}
 <div class="modal fade" id="exampleModal{{forloop.counter}}" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Send Staff Notification
-                    To&nbsp;{{s.admin.first_name}}&nbsp;{{s.admin.last_name}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">
+                Reply To:&nbsp;{{feed.staff_id.admin.first_name}}&nbsp;{{feed.staff_id.admin.last_name}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
             <div class="modal-body">
-                <form method="post" action="{% url 'save_notification' %}">
+                <form method="post" action="{% url 'staff_feedback_save_reply' %}">
                     {%csrf_token%}
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Massage" name="massage">
-                        <input type="text" class="form-control" name="staff_id" value="{{s.admin.id}}" hidden>
+                        <input type="text" class="form-control" placeholder="Massage" name="feedback_id" value="{{feed.id}}"hidden>
+                        <textarea row="4" class="form-control" name="feedback_reply"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Notifications</button>
+                    <button type="submit" class="btn btn-primary">Send Replay</button>
                 </form>
             </div>
             <!-- <div class="modal-footer">
