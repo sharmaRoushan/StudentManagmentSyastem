@@ -57,7 +57,7 @@
                </ul>
             </li>
             <li>
-               <a href="#"><i class="fas fa-bell"></i> <span>Send Student Notification</span></a>
+               <a href="/send_student_notification"><i class="fas fa-bell"></i> <span>Send Student Notification</span></a>
             </li>
             <li>
                <a href="/send_notification"><i class="far fa-bell"></i><span>Send Staff Notification</span></a>
@@ -108,15 +108,43 @@
             <li class="{% active_link 'notification' ' active' %}">
                <a href="/notification"><i class="fa fa-bell"></i> <span>Notification</span></a>
             <li>
-               <a href="#"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+               <a href="/dologin"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
             </li>
             </li>
 
 
          </ul>
          {%else%}
+         <ul>
+            <li class="menu-title">
+               <span>Main Menu</span>
+            </li>
+            <li class="{% active_link '   student_home' ' active' %}">
+               <a href="/student_home"><i class="fa fa-home"></i> <span>Dashboard</span></a>
+            </li>
+            <li class="{% active_link '' ' active' %}">
+               <a href="#"><i class="fa fa-address-card"></i> <span>View Attendance</span></a>
+            </li>
+            <li class="{% active_link '#' ' active' %}">
+               <a href="#"><i class="fa fa-file-text"></i> <span>View Result</span></a>
+            </li>
+            </li>
+            <li class="{% active_link '#' ' active' %}">
+               <a href="#"><i class="fas fa-user-alt-slash	"></i> <span>Apply For Leave</span></a>
+            </li>
+            <li class="{% active_link '' ' active' %}">
+               <a href="#"><i class="fa fa-star"></i> <span>Send Feedback</span></a>
+            <li>
+            </li>
+            <li class="{% active_link '#' ' active' %}">
+               <a href="#"><i class="fa fa-bell"></i><span>Notification</span></a>
+            </li>
+            </li>
+            <li class="{% active_link '#' ' active' %}">
+               <a href="/dologin"><i class="fas fa-sign-out-alt "></i> <span>Logout</span></a>
+            </li>
 
-         {%endif%}
+            {%endif%}
       </div>
    </div>
 </div>

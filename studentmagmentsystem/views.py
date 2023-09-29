@@ -21,7 +21,7 @@ def dologin(request):
             elif user_type == '2':
                  return redirect('staff_home')
             elif user_type == '3':
-                return redirect('hod/student')
+                return redirect ('student_home')
 
             else:
                 messages.error(request,'Email and password are invaled')

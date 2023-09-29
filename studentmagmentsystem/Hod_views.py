@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subject,Staff_notification,Staff_leave,Feedback
+from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subject,Staff_notification,Staff_leave,Feedback,Student_notification
 from django.contrib import messages
 @login_required(login_url='/')
 def HodHome(request):
@@ -458,6 +458,25 @@ def staff_feedback_reply_save(request):
         feedback_id=request.POST['feedback_id']
         feedback_reply=request.POST['feedback_reply']
         feedback=Feedback.objects.get(id=feedback_id)
-        feedback_reply=feedback_reply
+        feedback.feedback_reply=feedback_reply
         feedback.save()
-    return redirect('staff_feedback')
+        return redirect('staff_feedback')
+def Send_student_notification(request):
+    student= Student.objects.all()
+    context={
+        'student':student
+    }
+    return render(request,'hod/send_student_notification.html',context)
+def Save_student_notification(request):
+    if request.method=="POST":
+        massage=request.POST['massage']
+        student_id=request.POST.get('student_id')
+        # print(massage,student_id)
+        student=Student.objects.get(admin=student_id)
+        student_notification=Student_notification(
+            student_id=student,
+            message=massage
+        )
+        student_notification.save()
+        messages.success(request,'Studnet notification successfuly sent ')
+    return redirect('send_student_notification')

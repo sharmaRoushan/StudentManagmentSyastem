@@ -53,6 +53,9 @@ urlpatterns = [
     path('save_notification',Hod_views.save_staff_notification,name='save_notification'),
     path('staff_feedback',Hod_views.Staff_feedback,name='staff_feedback'),
     path('staf_feedback_save_reply',Hod_views.staff_feedback_reply_save,name='staff_feedback_save_reply'),
+    path('send_student_notification',Hod_views.Send_student_notification,name='send_student_notification'),
+    path('save_student_notification',Hod_views.Save_student_notification,name='save_student_notification'),
+
 
 
     # This is staff urls
@@ -66,6 +69,8 @@ urlpatterns = [
     path('diss_approve_leave/<int:pk>',Hod_views.Staff_dissapprove_leave,name='diss_approve_leave'),
     path('send_feedback',Staff_views.apply_feedback,name='send_feedback'),
     path('feedback_save',Staff_views.Save_Feedback,name='feedback_save'),
+    #  Student url page...
+    path('student_home',Student_views.Student_home,name='student_home')
 
 
     

@@ -85,6 +85,15 @@ class Feedback(models.Model):
     def __str__(self):
         return self.staff_id.admin.first_name +" "+self.staff_id.admin.last_name
 
+class Student_notification(models.Model):
+    student_id=models.ForeignKey(Student,on_delete=models.CASCADE)
+    message=models.TextField(null=True)
+    created_at=models.DateTimeField(auto_now_add=True)
+    status=models.IntegerField(null=True,default=0)
+
+   
+    def __str__(self):
+        return self.student_id.admin.first_name
 
 
 
