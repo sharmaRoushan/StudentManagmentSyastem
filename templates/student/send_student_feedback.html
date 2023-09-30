@@ -1,0 +1,109 @@
+{%extends 'base.html'%}
+{% block content %}
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3 class="page-title">FEEDBACK</h3>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item active">{{user.first_name}}</li>
+            </ul>
+        </div>
+        <div class="col-auto text-right float-right ml-auto">
+            <button class="btn btn-primary mr-2" type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#staticBackdrop"><i class="fa-solid fa-message"></i>&nbsp;Feedback History</a>
+                <!-- <a href="add-student.html" class="btn btn-primary"><i class="fas fa-plus"></i></a> -->
+        </div>
+    </div>
+</div>
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <form method="POST" action="{% url 'student_feedback_save' %}">
+                {% csrf_token %}
+                <div class="col-12">
+                    <h5 class="form-title"><span>FEEDBACK</span></h5>
+                </div>
+                {% include 'includes/messages.html'%}
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label>Feedback Message</label>
+                        <textarea class="form-control" name="stud_feedback" style="height: 250px;"
+                            placeholder=" Enter Message" required></textarea>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Send Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Leave Apply History</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-center mb-0 datatable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Feedback</th>
+                                            <th>Reply</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {%for fb in feedback_history %}
+                                        <tr>
+                                            <td>{{fb.id}}</td>
+                                            <td>{{fb.feedback}}</td>
+                                            {% if fb.feedback_reply == "" %}
+
+                                            <td>
+                                                <span class="badge badge-danger">No Replay</span>
+
+                                            </td>
+                                            {%else%}
+
+                                            <td>
+                                                {{fb.feedback_reply}}
+
+                                            </td>
+                                            {%endif%}
+
+
+
+
+                            </div>
+                            </td>
+                            </tr>
+                            {%endfor%}
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
+        </div> -->
+    </div>
+</div>
+</div>
+
+
+{%endblock%}

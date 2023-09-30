@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subject,Staff_notification,Staff_leave,Feedback,Student_notification
+from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subject,Staff_notification,Staff_leave,Feedback,Student_notification,Student_feedback
 from django.contrib import messages
 @login_required(login_url='/')
 def HodHome(request):
@@ -447,26 +447,37 @@ def Staff_dissapprove_leave(request,pk):
     leave.status=2
     leave.save()
     return redirect('holiday_view')
+@login_required(login_url="/")
+
 def Staff_feedback(request):
     feedback=Feedback.objects.all()
     context={
         'feedback':feedback
     }
     return render(request,'hod/staff_feedback.html',context)
+@login_required(login_url="/")
+
 def staff_feedback_reply_save(request):
     if request.method=="POST":
         feedback_id=request.POST['feedback_id']
         feedback_reply=request.POST['feedback_reply']
         feedback=Feedback.objects.get(id=feedback_id)
         feedback.feedback_reply=feedback_reply
+        feedback.status=1
         feedback.save()
         return redirect('staff_feedback')
+@login_required(login_url="/")
+
 def Send_student_notification(request):
     student= Student.objects.all()
+    notification=Student_notification.objects.all()
     context={
-        'student':student
+        'student':student,
+        'notification':notification
     }
     return render(request,'hod/send_student_notification.html',context)
+@login_required(login_url="/")
+
 def Save_student_notification(request):
     if request.method=="POST":
         massage=request.POST['massage']
@@ -480,3 +491,21 @@ def Save_student_notification(request):
         student_notification.save()
         messages.success(request,'Studnet notification successfuly sent ')
     return redirect('send_student_notification')
+@login_required(login_url="/")
+def Student_Feedback(request):
+    student_feedback=Student_feedback.objects.all()
+    feedback_history=Student_feedback.objects.all().order_by('-id')[0:5]
+    context={
+        'student_feedback':student_feedback,
+        'feedback_history':feedback_history
+    }
+    return render(request,'hod/student_feedback.html',context)
+def Student_save_feedback(request):
+    if request.method=="POST":
+        student_feedback_id=request.POST['student_feedback_id']
+        student_feedback_reply=request.POST['student_feedback_reply']
+        feedback=Student_feedback.objects.get(id=student_feedback_id)
+        feedback.feedback_reply=student_feedback_reply
+        feedback.status=1
+        feedback.save()
+        return redirect('student_feedback')

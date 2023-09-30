@@ -98,14 +98,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {% for s in see_notification %}
+                                            {% for stud in notification %} 
                                             <tr>
-                                                <td>{{s.message}}</td>
-                                                {% if s.status == 0%}
-                                                <td> <span class="badge badge-danger">Hod un read the messages</span>
+                                                <td>{{stud.message}}</td>
+                                                {% if stud.status == 0 %}
+                                                <td> <span class="badge badge-danger">Unread the messages</span>
                                                 </td>
                                                 {%else%}
-                                                <td> <span class="badge badge-success"> Hod read the messages</span>
+                                                <td> <span class="badge badge-success">read the messages</span>
                                                 </td>
                                                 {%endif%}
 
@@ -134,8 +134,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Send Staff Notification
-                    To&nbsp;{{s.admin.first_name}}&nbsp;{{s.admin.last_name}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Student Message
+                    To&nbsp;{{stud.admin.first_name}}&nbsp;{{stud.admin.last_name}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

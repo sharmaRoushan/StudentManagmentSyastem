@@ -31,7 +31,7 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th> Staff Name</th>
+                                    <th>Student Name</th>
                                     <th>Feedback</th>
                                     <th>Date</th>
                                     <th class="text-right">Action</th>
@@ -108,8 +108,11 @@
                                             <tr>
                                                 <td>{{feed.feedback}}</td>
 
+                                                {% if feed.status == 0%}
+                                                <td> <span class="badge badge-danger">No Reply</span></td>
+                                                {%else%}
                                                 <td>{{feed.feedback_reply}}</td>
-                                                
+                                                {%endif%}                                                
                                             </tr>
                                             {%endfor%}
                                         </tbody>

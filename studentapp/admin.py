@@ -12,6 +12,8 @@ admin.site.register(Staff_notification)
 admin.site.register(Staff_leave)
 admin.site.register(Feedback)
 admin.site.register(Student_notification)
+admin.site.register(Student_feedback)
+admin.site.register(Student_leave)
 class UserModel(UserAdmin):
     list_display=['username','user_type']
 
