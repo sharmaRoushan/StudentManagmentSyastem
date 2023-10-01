@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from studentapp.models import Staff,Staff_notification,Staff_leave,Feedback
+from studentapp.models import Staff,Staff_notification,Staff_leave,Feedback,Subject,Session_Year
 from django. contrib import messages
 @login_required(login_url="/")
 def staff_home(request):
@@ -77,3 +77,13 @@ def Save_Feedback(request):
         feedback.save()   
         messages.success(request,'Sent feedback successfully')        
     return redirect('send_feedback')
+def Take_Attendance(request):
+    staff_id=Staff.objects.get(admin=request.user.id)
+    subject=Subject.objects.filter(staff=staff_id)
+    session_year=Session_Year.objects.all()
+    context={
+        'subject':subject,
+        'session_year':session_year
+    }
+
+    return render(request,'staff/take_attendance.html',context)

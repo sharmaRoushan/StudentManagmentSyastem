@@ -5,9 +5,9 @@
    <div class="page-header">
       <div class="row align-items-center">
          <div class="col">
-            <h3 class="page-title">Staff Leave</h3>
+            <h3 class="page-title">Student Leave</h3>
             <ul class="breadcrumb">
-               <li class="breadcrumb-item active">{{staff_id.admin.first_name}}</li>
+               <li class="breadcrumb-item active">{{admin.first_name}}</li>
 
             </ul>
 
@@ -30,7 +30,7 @@
                      <thead>
                         <tr>
                            <th>ID</th>
-                           <th>Staff Name</th>
+                           <th>Student Name</th>
                            <th>Leave Date</th>
                            <th>Message</th>
 
@@ -38,18 +38,18 @@
                         </tr>
                      </thead>
                      <tbody>
-                        {%for sl in staff_leave %}
+                        {%for stud in student_leave %}
                         <tr>
-                           <td>{{sl.id}}</td>
-                           <td>{{sl.staff_id.admin.first_name}}</td>
-                           <td>{{sl.data}}</td>
-                           <td>{{sl.message}}</td>
+                           <td>{{stud.id}}</td>
+                           <td>{{stud.student_id.admin.first_name}}</td>
+                           <td>{{stud.data}}</td>
+                           <td>{{stud.message}}</td>
                            <td class="text-right">
                               <div class="actions">
-                                {% if sl.status == 0 %}
-                                <a href="/approve_leave/{{sl.id}}" class="btn btn-success">Approve</a>
-                                <a href="/diss_approve_leave/{{sl.id}}" class="btn btn-danger">Dissapprove</a>
-                                {% elif sl.status == 1 %}
+                                {% if stud.status == 0 %}
+                                <a href="/approve_leave/{{stud.id}}" class="btn btn-success">Approve</a>
+                                <a href="/dissapprove_leave/{{stud.id}}" class="btn btn-danger">Dissapprove</a>
+                                {% elif stud.status == 1 %}
                                 <button class="btn btn-success" disabled="disabled">Approve</button>
                                 {%else%}
                                 <button class="btn btn-danger" disabled="disabled">Dissapprove</button>

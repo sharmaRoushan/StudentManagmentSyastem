@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
-from studentapp.models import Student_notification,Student,Student_feedback
+from studentapp.models import Student_notification,Student,Student_feedback,Student_leave
+from django. contrib import messages
+
 
 def Student_home(request):
     return render(request,'student/student_home.html')
@@ -41,4 +43,25 @@ def student_Feedback_save(request):
         stud.save()
     return redirect('send_student_feedback')
 def Student_leave_apply(request):
-    return render(request,'student/student_leave.html')
+    student=Student.objects.filter(admin=request.user.id)
+    for stud in student:
+        student_id=stud.id
+        student_leave_history=Student_leave.objects.filter(student_id=student_id)
+        context={
+            'student_leave_history':student_leave_history
+        }
+       
+    return render(request,'student/student_leave.html',context)
+def Student_leave_save(request):
+    if request.method== "POST":
+        leave_date=request.POST['leave_date']
+        leave_message=request.POST['leave_message']
+        student_id=Student.objects.get(admin=request.user.id)
+        student_leave=Student_leave(
+            student_id=student_id,
+            data=leave_date,
+            message=leave_message,
+        )
+        messages.success(request,'student leave are successfully sent')
+        student_leave.save()
+        return redirect('student_leave_apply')

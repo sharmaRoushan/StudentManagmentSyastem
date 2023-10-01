@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subject,Staff_notification,Staff_leave,Feedback,Student_notification,Student_feedback
+from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subject,Staff_notification,Staff_leave,Feedback,Student_notification,Student_feedback,Student_leave
 from django.contrib import messages
 @login_required(login_url='/')
 def HodHome(request):
@@ -509,3 +509,21 @@ def Student_save_feedback(request):
         feedback.status=1
         feedback.save()
         return redirect('student_feedback')
+@login_required(login_url="/")
+def Student_leave_save(request):
+    student_leave=Student_leave.objects.all()
+    context={
+        'student_leave':student_leave
+    }
+    return render(request,'hod/student_leave_hod.html',context)
+def Student_approve_leave(request,pk):
+    student=Student_leave.objects.get(id=pk)
+    student.status=1
+    student.save()
+    return redirect('student_leave')
+def Student_dissapprove_leave(request,pk):
+    student_leave=Student_leave.objects.get(id=pk)
+    student_leave.status=2
+    student_leave.save()
+
+    return redirect('student_leave')

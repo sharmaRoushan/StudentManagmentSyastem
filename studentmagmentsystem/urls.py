@@ -57,6 +57,9 @@ urlpatterns = [
     path('save_student_notification',Hod_views.Save_student_notification,name='save_student_notification'),
     path('student_feedback',Hod_views.Student_Feedback,name='student_feedback'),
     path('student_feedback_save_reply',Hod_views.Student_save_feedback,name='student_feedback_save_reply'),
+    path('student_leave',Hod_views.Student_leave_save,name='student_leave'),
+    path('approve_leave/<int:pk>',Hod_views.Student_approve_leave,name='approve_leave'),
+    path('dissapprove_leave/<int:pk>',Hod_views.Student_dissapprove_leave,name='dissapprove_leave'),
 
 
 
@@ -71,13 +74,15 @@ urlpatterns = [
     path('diss_approve_leave/<int:pk>',Hod_views.Staff_dissapprove_leave,name='diss_approve_leave'),
     path('send_feedback',Staff_views.apply_feedback,name='send_feedback'),
     path('feedback_save',Staff_views.Save_Feedback,name='feedback_save'),
+    path('take_attendance',Staff_views.Take_Attendance,name='take_attendance'),
     #  Student url page...
     path('student_home',Student_views.Student_home,name='student_home'),
     path('student_notification',Student_views.Stud_notification,name='student_notification'),
     path('student_mark_done<str:status>',Student_views.Student_mark_done,name='student_mark_done'),
     path('send_student_feedback',Student_views.Send_student_feedback,name='send_student_feedback'),
     path('student_feedback_save',Student_views.student_Feedback_save,name='student_feedback_save'),
-    path('student_leave_apply',Student_views.Student_leave_apply,name='student_leave_apply')
+    path('student_leave_apply',Student_views.Student_leave_apply,name='student_leave_apply'),
+    path('student_apply_save',Student_views.Student_leave_save,name='student_apply_save')
 
     
 
