@@ -75,6 +75,8 @@ urlpatterns = [
     path('send_feedback',Staff_views.apply_feedback,name='send_feedback'),
     path('feedback_save',Staff_views.Save_Feedback,name='feedback_save'),
     path('take_attendance',Staff_views.Take_Attendance,name='take_attendance'),
+    path('staff_save_attendance',Staff_views.Save_attendance,name='staff_save_attendance'),
+    path('view_staff_attendance',Staff_views.View_staff_attendance,name='view_staff_attendance'),
     #  Student url page...
     path('student_home',Student_views.Student_home,name='student_home'),
     path('student_notification',Student_views.Stud_notification,name='student_notification'),
@@ -83,8 +85,6 @@ urlpatterns = [
     path('student_feedback_save',Student_views.student_Feedback_save,name='student_feedback_save'),
     path('student_leave_apply',Student_views.Student_leave_apply,name='student_leave_apply'),
     path('student_apply_save',Student_views.Student_leave_save,name='student_apply_save')
-
-    
 
 
     

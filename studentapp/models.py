@@ -122,7 +122,7 @@ class Attendance(models.Model):
     ceated_at=models.DateTimeField(auto_now_add=True)
     update_at=models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return self.subject_id.name
+        return self.subject_id.subject_name
 class Attendance_Report(models.Model):
     student_id=models.ForeignKey(Student,on_delete=models.DO_NOTHING)
     attendance_id=models.ForeignKey(Attendance,on_delete=models.CASCADE)

@@ -51,7 +51,7 @@ def Student_leave_apply(request):
             'student_leave_history':student_leave_history
         }
        
-    return render(request,'student/student_leave.html',context)
+        return render(request,'student/student_leave.html',context)
 def Student_leave_save(request):
     if request.method== "POST":
         leave_date=request.POST['leave_date']
