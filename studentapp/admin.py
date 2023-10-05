@@ -16,6 +16,7 @@ admin.site.register(Student_feedback)
 admin.site.register(Student_leave)
 admin.site.register(Attendance)
 admin.site.register(Attendance_Report)
+admin.site.register(student_result)
 class UserModel(UserAdmin):
     list_display=['username','user_type']
 

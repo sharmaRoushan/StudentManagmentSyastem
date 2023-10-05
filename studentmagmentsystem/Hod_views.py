@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subject,Staff_notification,Staff_leave,Feedback,Student_notification,Student_feedback,Student_leave
+from studentapp.models import Course,Session_Year,CoustamUser,Student,Staff,Subject,Staff_notification,Staff_leave,Feedback,Student_notification,Student_feedback,Student_leave,Attendance,Attendance_Report
 from django.contrib import messages
 @login_required(login_url='/')
 def HodHome(request):
@@ -137,7 +137,7 @@ def Update_student(request):
     return render(request,'hod/edit_student.html')
 @login_required(login_url='/')
 def Dilite_Student(request,pk):
-    user=admin.objects.get(id=pk)
+    user=Student.objects.get(id=pk)
     user.delete()
     return redirect('hod/student')
 @login_required(login_url='/')
@@ -431,7 +431,7 @@ def save_staff_notification(request):
 def Sataf_leave_view(request):
     staff_leave=Staff_leave.objects.all() 
     context={
-      'staff_leave':staff_leave                                
+      'staff_leave':staff_leave,                               
 
     }
     return render(request,'hod/staff_leave_view.html',context)
@@ -448,7 +448,6 @@ def Staff_dissapprove_leave(request,pk):
     leave.save()
     return redirect('holiday_view')
 @login_required(login_url="/")
-
 def Staff_feedback(request):
     feedback=Feedback.objects.all()
     context={
@@ -456,7 +455,6 @@ def Staff_feedback(request):
     }
     return render(request,'hod/staff_feedback.html',context)
 @login_required(login_url="/")
-
 def staff_feedback_reply_save(request):
     if request.method=="POST":
         feedback_id=request.POST['feedback_id']
@@ -467,7 +465,6 @@ def staff_feedback_reply_save(request):
         feedback.save()
         return redirect('staff_feedback')
 @login_required(login_url="/")
-
 def Send_student_notification(request):
     student= Student.objects.all()
     notification=Student_notification.objects.all()
@@ -477,7 +474,6 @@ def Send_student_notification(request):
     }
     return render(request,'hod/send_student_notification.html',context)
 @login_required(login_url="/")
-
 def Save_student_notification(request):
     if request.method=="POST":
         massage=request.POST['massage']
@@ -516,14 +512,53 @@ def Student_leave_save(request):
         'student_leave':student_leave
     }
     return render(request,'hod/student_leave_hod.html',context)
+@login_required(login_url="/")
 def Student_approve_leave(request,pk):
     student=Student_leave.objects.get(id=pk)
     student.status=1
     student.save()
     return redirect('student_leave')
+@login_required(login_url="/")
 def Student_dissapprove_leave(request,pk):
     student_leave=Student_leave.objects.get(id=pk)
     student_leave.status=2
     student_leave.save()
 
     return redirect('student_leave')
+@login_required(login_url="/")
+def Allview_attendance(request):
+    # staff_id=Staff.objects.get(admin=request.user.id)
+    subject=Subject.objects.all()
+    session_year=Session_Year.objects.all()
+    action=request.GET.get('action')
+    get_subject= None
+    get_seession_year=None
+    attendance_date=None
+    attendace_report=None
+    if action is not None:
+        if request.method=="POST":
+            subject_id=request.POST.get('subject_id')
+            session_year_id=request.POST['session_year_id']
+            attendance_date=request.POST['attendance_date']
+            get_subject=Subject.objects.get(id=subject_id)
+            get_seession_year=Session_Year.objects.get(id=session_year_id)
+            # print()
+            attendance=Attendance.objects.filter(subject_id=get_subject,attendance_date=attendance_date)
+            # print(attendance)
+            for sub in attendance:
+                attendance_id=sub.id
+                attendace_report=Attendance_Report.objects.filter(attendance_id=attendance_id)
+            # print(sub.id)
+            # print(attendace_report)
+
+    context={
+        'subject':subject,
+        'session_year':session_year,
+        'action':action,
+        'get_subject':get_subject,
+        'get_seession_year':get_seession_year,
+        'attendance_date':attendance_date,
+        'attendace_report':attendace_report
+    }
+  
+    return render(request,'hod/allview_attendance.html',context)

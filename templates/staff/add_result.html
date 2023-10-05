@@ -1,0 +1,125 @@
+{%extends 'base.html'%}
+{% block content %}
+<div class="content container-fluid">
+
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Add Result</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="subjects.html">Result</a></li>
+                    <li class="breadcrumb-item active">Add Result</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% include 'includes/messages.html'%}
+    {% if action is None%}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <form action="?action=show-student" method="post">
+                        {%csrf_token%}
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="form-title"><span>Add Result</span></h5>
+                            </div>
+
+
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Subject</label>
+                                    <select class="form-control" name="subject_id" required>
+                                        <option>--Select Subject--</option>
+                                        {% for sub in subject %}
+                                        <option value="{{sub.id}}">{{sub.subject_name}}</option>
+                                        {%endfor%}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+
+                                <div class="form-group">
+                                    <label>Session Year</label>
+                                    <select class="form-control" name="session_year_id" required>
+                                        <option>--Select Session Year--</option>
+                                        {% for session in session_year %}
+                                        <option value="{{session.id}}">
+                                            {{session.session_start}}To&nbsp;{{session.session_end}}
+                                        </option>
+                                        {%endfor%}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Fetch Result</button>
+                        </div>
+                </div>
+                </form>
+                {%else%}
+                <form action="{%url 'staff_save_result'%}" method="post">
+                    {%csrf_token%}
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="form-title"><span>Add Result</span></h5>
+                        </div>
+
+
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <select class="form-control" name="subject_id"required>
+                                    <option value="{{get_subject.id}}">{{get_subject}}</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Session Year</label>
+                                <select class="form-control" name="session_year_id" required>
+                                    <option value="{{get_session_year.id}}">{{get_session_year}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Student List</label>
+                                <select class="form-control" name="student_id" required>
+                                    <!-- <option>--Student List--</option> -->
+                                    {%for sub in students%}
+                                    <option value="{{sub.admin.id}}">ID:{{sub.id}} {{sub.admin.first_name}}&nbsp;{{sub.admin.last_name}}</option>
+                                    {%endfor%}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Assignment Marks</label>
+                                <input type="number" class="form-control" name="assigment_marks">
+                            </div>
+
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Exam Marks</label>
+                                <input type="number" class="form-control" name="exam_marks">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Add Result</button>
+                    </div>
+            </div>
+            </form>
+            {%endif%}
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{%endblock%}

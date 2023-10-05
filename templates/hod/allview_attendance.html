@@ -1,0 +1,152 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class="content container-fluid">
+
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">view Attendance</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="subjects.html">Attendance</a></li>
+                    <li class="breadcrumb-item active">View Attendance</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% include 'includes/messages.html'%}
+    {% if action is None %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <form action="?action=view_attendance" method="post">
+                        {%csrf_token%}
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="form-title"><span>Attendance</span></h5>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Subject</label>
+                                    <select class="form-control" name="subject_id" required>
+                                        <option>Select Subject</option>
+                                        {% for sub in subject %}
+                                        <option value="{{sub.id}}">{{sub.subject_name}}</option>
+                                        {%endfor%}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+
+                                <div class="form-group">
+                                    <label>Session Year</label>
+                                    <select class="form-control" name="session_year_id" required>
+                                        <option>Select Session Year</option>
+                                        {% for sub in session_year %}
+                                        <option value="{{sub.id}}">
+                                            {{sub.session_start}}&nbsp;To&nbsp;{{sub.session_end}}
+                                        </option>
+                                        {%endfor%}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Attendance Date</label>
+                                    <input type="date" class="form-control" name="attendance_date">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Show Attendance</button>
+                        </div>
+                </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{%else%}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="?action=view_attendance" method="post">
+                    {%csrf_token%}
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="form-title"><span>Attendance</span></h5>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <select class="form-control" name="subject_id" disabled>
+                                    <option value="{{sub.id}}">{{get_subject}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+
+                            <div class="form-group">
+                                <label>Session Year</label>
+                                <select class="form-control" name="session_year_id" disabled>
+                                    <option value="{{sub.id}}">
+                                        {{get_seession_year}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Attendance Date</label>
+                                <input type="date" class="form-control" name="attendance_date" value="{{attendance_date}}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-sm-12">
+                               <div class="card card-table">
+                                  <div class="card-body">
+                                     <div class="table-responsive">
+                                        <table class="table table-hover table-center mb-0 datatable">
+                                           <thead>
+                                              <tr>
+                                                 <th>ID</th>
+                                                 <th>Name</th>
+                                                 <th>Email</th>
+                                                 <!-- <th class="text-right">Action</th> -->
+                                              </tr>
+                                           </thead>
+                                           <tbody>
+                                              {% for sub in attendace_report %}
+                                              <tr>
+                                                 <td>{{sub.student_id.admin.id}}</td>
+                                                 <td>{{sub.student_id.admin.first_name}}</td>
+                                                 <td>{{sub.student_id.admin.email}}</td>
+                                                 
+                                                 <td class="text-right">
+                                                    
+                                              </tr>
+                                              {%endfor%}
+                                           </tbody>
+                                        </table>
+                                     </div>
+                                  </div>
+                               </div>
+                            </div>
+                         
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+
+{%endif%}
+</div>
+{%endblock%}

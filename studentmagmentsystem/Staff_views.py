@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from studentapp.models import Staff,Staff_notification,Staff_leave,Feedback,Subject,Session_Year,Student,Attendance,Attendance_Report
+from studentapp.models import Staff,Staff_notification,Staff_leave,Feedback,Subject,Session_Year,Student,Attendance,Attendance_Report,student_result
 from django. contrib import messages
 @login_required(login_url="/")
 def staff_home(request):
@@ -54,7 +54,8 @@ def staff_apply_save(request):
         )
         leave_in.save()
         messages.success(request,"Apply for leave")
-        return redirect('staff_leave') 
+        return redirect('staff_leave')
+@login_required(login_url="/") 
 def apply_feedback(request):
     staff_id=Staff.objects.get(admin=request.user.id)
     feedback_history=Feedback.objects.filter(staff_id=staff_id)
@@ -62,6 +63,7 @@ def apply_feedback(request):
         'feedback_history':feedback_history
     }
     return render(request,'staff/send_feedback_staff.html',context)
+@login_required(login_url="/")
 def Save_Feedback(request):
     if request.method=="POST":
         feedback=request.POST['feedback']
@@ -77,6 +79,7 @@ def Save_Feedback(request):
         feedback.save()   
         messages.success(request,'Sent feedback successfully')        
     return redirect('send_feedback')
+@login_required(login_url="/")
 def Take_Attendance(request):
     staff_id=Staff.objects.get(admin=request.user.id)
     subject=Subject.objects.filter(staff=staff_id)
@@ -106,6 +109,7 @@ def Take_Attendance(request):
     }
     # print(context)
     return render(request,'staff/take_attendance.html',context)
+@login_required(login_url="/")
 def Save_attendance(request):
     if request.method== "POST":
         subject_id=request.POST['subject_id']
@@ -132,6 +136,7 @@ def Save_attendance(request):
             attendance_report.save()
 
     return redirect('take_attendance')
+@login_required(login_url="/")
 def View_staff_attendance(request):
     staff_id=Staff.objects.get(admin=request.user.id)
     subject=Subject.objects.filter(staff_id=staff_id)
@@ -167,3 +172,67 @@ def View_staff_attendance(request):
         'attendace_report':attendace_report
     }
     return render(request,'staff/view_staff_attendance.html',context)
+@login_required(login_url="/")
+def Add_Result(request):
+    staff=Staff.objects.get(admin=request.user.id)
+    # print(staff)
+    subject=Subject.objects.filter(staff_id=staff)
+    session_year=Session_Year.objects.all()
+    action=request.GET.get('action')
+    get_subject=None
+    get_session_year=None
+    students=None
+    if action is not None:
+        if request.method=="POST":
+            subject_id=request.POST.get('subject_id')
+            session_year_id=request.POST.get('session_year_id')
+            # print(subject_id)
+            # print(session_year_id)
+            get_subject=Subject.objects.get(id=subject_id)
+            get_session_year=Session_Year.objects.get(id=session_year_id)
+            subjects=Subject.objects.filter(id=subject_id)
+            for sub in subjects:
+                student_id=sub.course.id
+                students=Student.objects.filter(course_id=student_id)
+
+
+        
+    context={
+        'subject':subject,
+        'session_year':session_year,
+        'action':action,
+        'get_subject':get_subject,
+        'get_session_year':get_session_year,
+        'students':students
+    }
+    return render(request,'staff/add_result.html',context)
+@login_required(login_url="/")
+def Staff_save_result(request):
+    if request.method=="POST":
+        subject_id=request.POST.get('subject_id')
+        session_year_id=request.POST.get('session_year_id')
+        student_id=request.POST.get('student_id')
+        assigment_marks=request.POST.get('assigment_marks')
+        exam_marks=request.POST.get('exam_marks')
+        get_student=Student.objects.get(admin=student_id)
+        get_subject=Subject.objects.get(id=subject_id)
+        check_exists=student_result.objects.filter(subject_id=get_subject,student_id=get_student).exists()
+        if check_exists:
+            result=student_result.objects.get(subject_id=get_subject,student_id=get_student)
+            result.assignment_mark=assigment_marks
+            result.exam_mark=exam_marks
+            result.save()
+            messages.success(request,'successfully updated result')
+            return redirect('add_result')
+        else:
+            result=student_result(
+                student_id=get_student,
+                subject_id=get_subject,
+                exam_mark=exam_marks,
+                assignment_mark=assigment_marks    
+            )
+            result.save()
+            messages.success(request,'successfully added result')
+        
+
+    return redirect('add_result')
