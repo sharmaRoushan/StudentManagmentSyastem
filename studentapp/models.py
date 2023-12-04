@@ -11,16 +11,6 @@ class CoustamUser(AbstractUser):
     )
     user_type=models.CharField(choices=User,max_length=50,default=1)
     profile_pic=models.ImageField(upload_to='Media/profile_pic')
-    # profile_pic=models.ImageField(null=True,blank=True)
-    # @property
-    # def imageURL(self):
-    #     url=""
-    #     try:
-    #         url=self.image.url
-    #         # url=""
-    #     except:
-    #         url=""
-    #     return url
 class Course(models.Model):
     course_name=models.CharField(max_length=100,null=True)
     created_at=models.DateTimeField(auto_now_add=True)
